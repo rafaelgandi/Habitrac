@@ -1,0 +1,20 @@
+CALCULATING A PERCENTAGE
+========================
+
+The term 'percent' means 'one hundredth', so to find 1% of a figure you 
+simply divide it by 100.
+
+For example, if John scores 60 out of 75 in mathematics we can find the 
+percentage of his marks by dividing 60 by 75, which is 0.8 and then 
+multiplying this figure by 100. This gives us the percentage of his 
+marks in math, which is 80%. 
+
+
+(60/75) x 100 = 80%
+
+
+-------------------------
+ok = 7 -> 87.5%
+fail = 1 -> 12.5%
+total = 8
+

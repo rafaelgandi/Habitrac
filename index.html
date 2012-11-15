@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<!-- See: http://debugfix.com/2011/11/android-browser-css-position-fixed-bug-solved/ -->
+	<meta name="viewport" content="width=100%, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+	<title>Habitrac</title>  
+	<link rel="stylesheet" href="css/Mui.css">
+	<link rel="stylesheet" href="css/habitrac.css">
+	
+</head>
+<body class="habitrac">
+<header id="mui_header" class="glow">
+	<h1></h1>	
+	<span id="mui_header_side_button_con"></span>
+</header>
+
+
+
+<section id="habit_list_page" class="mui_page mui_active_page">
+	<ul id="habit_list" class="mui_listview"></ul>
+</section>
+
+<section id="new_habit_page" class="mui_page ">
+	<input id="habit_input">
+	<button id="add_habit_button" data-hlightclass="didit_press"><img src="images/check.png"> Add</button>
+</section>
+
+<script>!window.PhoneGap && document.write("<script src='phonegap.js'>\x3C/script>");</script>
+<script src="js/lib/zepto.min.js"></script>
+<script src="js/lib/LAB.min.js"></script>
+<script src="js/lib/Mui.js"></script>
+<script src="js/Habitrac.Startups.js"></script>
+<script>
+var lab = $LAB,
+	z = Zepto;
+document.addEventListener('deviceready', function () {
+	lab.script('js/Habitrac.js')
+	.script('js/Habitrac.Storage.js')
+	.script('js/lib/tweet_tmpl.js')
+	.wait(function () {
+		lab.script('js/lib/Util.js').script('js/Habitrac.Builder.js').wait(function () {
+			Habitrac.Builder.getTemplate('habit_list.html');
+			lab.script('js/Habitrac.Logic.js').wait(function () {				
+				Habitrac.Logic.buildHabitList();
+				lab.script('js/Habitrac.Events.js');
+			});			
+		});
+	});
+}, true);
+</script>
+</body></html>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "com.habitrac.android"
+        versionCode="1" 
+        version   = "1.0">
+
+    <!-- versionCode is optional and Android only -->
+
+    <name>Habitrac</name>
+
+    <description>
+     My habit tracker app
+    </description>
+
+    <author href="http://www.rafaelgandi.tk" email="rafaelgandi@gmail.com">
+        Rafael Gandionco
+    </author>
+	
+	<icon src="icon.png" />
+	
+	<!-- ALLOW APP TO BE MOVED TO SD CARD -->
+	<!-- See: http://developer.android.com/guide/topics/data/install-location.html -->
+	<preference name="android-installLocation" value="auto" />
+</widget>

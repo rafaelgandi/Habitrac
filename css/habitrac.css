@@ -1,0 +1,110 @@
+@font-face {
+    font-family: 'RobotoRegular';
+    src: url('../fonts/Roboto-Regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: 'RobotoRegular', Arial, sans-serif;
+	font: 18px/27px;
+}
+#mui_header {
+	background-color:#80C801;
+}
+.mui_page {
+	background-image: url('../images/texture7.png');
+}
+.mui_page button {
+	text-shadow: 0 -1px 0 #4c9021;
+}
+button img {
+	vertical-align: middle;
+}
+#mui_header h1 {
+	text-shadow: 0 -1px 0 #4c9021;
+	color: #fff;
+	font-size: 20px;
+}
+.mui_listview li {
+	padding: 18px;
+}
+.mui_listview li sub {
+	color: #ccc;
+}
+#habit_list div {
+	padding:0;
+	margin:0;
+	padding-top: 10px;
+	margin:0 auto;
+}
+#habit_list button {
+	display: inline-block;
+	width: 48%;
+	color: #fff;
+	padding: 10px;
+	border: 0;
+	text-shadow: 0 -1px 0 #4c9021;
+	font-size: 20px;
+	font-weight:bold;
+	
+}
+
+#habit_list .didit_button {
+	background-color: #82B221;
+}
+#habit_list .failed_button {
+	background-color: #E33331;
+}
+#new_habit_page {
+	padding-top: 40px;
+}
+#habit_input {
+	font-size: 20px;
+	padding: 5px;
+	border: 1px solid #ccc;
+	display: block;
+	width: 90%;
+	margin:0 auto;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	color: #666;
+}
+#add_habit_button {
+	padding: 10px;
+	color: #fff;
+	border:0;
+	border-radius: 5px;
+	margin:0 auto;
+	display:block;
+	width: 150px;
+	background-color: #82B221;
+	font-size: 20px;
+	font-weight:bold;
+}
+button.header_b_hlight {
+	background-color:#8FB737 !important;
+}
+button.didit_press {	
+	background-color:#2DA80F !important;
+}
+button.fail_press {	
+	background-color:#E60A0C !important;
+}
+
+.trans {
+	-webkit-transition: all 0.20s linear 0s;
+	transition: all 0.20s linear 0s;
+}
+
+
+
+
+
+
+
+
+
+
