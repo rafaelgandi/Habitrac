@@ -66,7 +66,7 @@ button img {
 #edit_habit_input {
 	font-size: 20px;
 	padding: 15px;
-	border: 1px solid #ccc;
+	border: 2px solid #ebc67c;
 	display: block;
 	width: 90%;
 	margin:0 auto;
@@ -75,7 +75,8 @@ button img {
 	border-radius: 5px;
 }
 #add_habit_button,
-#save_edit_habit_button {
+#save_edit_habit_button,
+#calculate_pie_chart_button {
 	padding: 10px;
 	color: #fff;
 	border:0;
@@ -115,11 +116,16 @@ button.header_b_hlight {
 	background-color: #fff;
 	z-index: 200;
 	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-	box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);	
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+	margin: 0 auto;	
 }
 #habitrac_menu_popup_con li {
 	padding: 0 !important;
 	margin:0  !important;
+	border-bottom: 1px solid #53C1E9;
+}
+#habitrac_menu_popup_con li:last-child {
+	border:0;
 }
 #habitrac_menu_popup_con button {
 	font-family: 'RobotoRegular', Arial, sans-serif;
@@ -128,6 +134,8 @@ button.header_b_hlight {
 	width: 100%;
 	border:0;
 	padding: 20px;
+	margin:0;
+	text-align: center;
 }
 #habitrac_menu_popup_con button img {
 	width: 25px;
@@ -170,10 +178,48 @@ span.habit_label {
 	padding: 10px;
 }
 
+#pie_con {
+	width: 280px;
+	margin:0 auto;
+	overflow: hidden;
+	padding:0;
+	border: 1px solid #ccc;
+	background-color: #fff;
+	border-radius: 10px;
+}
+#pie_con h2 {
+	font-size: 14px;
+	text-align: center;
+	color: #666;
+	padding-top: 15px;
+}
 
+#chart_dates {
+	text-align: center;
+	margin: 0 auto;
+	border-top: 1px solid #ccc;
+	padding: 5px;
+}
 
+input.chart_date {
+	background-image: url('../images/calendar.png');
+	background-position: left;
+	background-repeat: no-repeat;
+	padding: 5px;
+	padding-left: 30px;
+	width: 100px;
+	border: 0;
+	color: #666;
+}
+#chart_date_from {
+	margin-right: 5px;
+}
 
-
-
+#calculate_pie_chart_button {
+	font-size: 15px;
+	padding: 10px;
+	margin-top: 15px;
+	margin-bottom: 10px;
+}
 
 

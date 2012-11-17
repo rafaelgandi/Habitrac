@@ -19,7 +19,7 @@
 		canvas.width = 3.5*radius;
 		canvas.height = 2.5*radius;
 		x = y = canvas.height/2;
-		a.font = "bold 12px Arial";
+		a.font = "bold 11px Arial";
 		var u = 0;
 		var v = 0;
 		for (i=0;i < percentages.length;i++) {
@@ -28,6 +28,17 @@
 			u = v;
 			a.fillText(n[i], x+radius+10, y-radius/2+i*18);
 		}
+	};
+	
+	Habitrac.Chart.setUpMobiscroll = function () {
+		var $dateField = Util.getElementFromCache('#chart_date_from, #chart_date_to');
+		// See: http://docs.mobiscroll.com/
+		$dateField.scroller({
+			theme: 'android-ics light',
+			mode: 'scroller',
+			preset: 'date',
+			display: 'modal'
+		});
 	};
 	
 })(self, Zepto, self.Habitrac, self.localStorage);

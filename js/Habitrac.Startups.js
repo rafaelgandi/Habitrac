@@ -2,7 +2,7 @@ Zepto(function (z) {
 	Mui.setHeaderMarkup({
 		'habit_list_page': {
 			'label': '<img src="images/logo.png">Habitrac',
-			'buttons': '<button id="add_habit_h_button" data-hlightclass="header_b_hlight"><img src="images/plus.png"></button>' +
+			'buttons': '<button id="add_habit_h_button" data-hlightclass="header_b_hlight"><img src="images/add_queue.png"></button>' +
 					   '<button class="exit" data-hlightclass="header_b_hlight"><img src="images/x.png"></button>'			
 		},
 		'new_habit_page': {

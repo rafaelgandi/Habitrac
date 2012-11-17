@@ -7,7 +7,7 @@
 	<title>Habitrac</title>  
 	<link rel="stylesheet" href="css/Mui.css">
 	<link rel="stylesheet" href="css/habitrac.css">
-	
+	<link rel="stylesheet" href="css/mobiscroll-2.1.custom.min.css">	
 </head>
 <body class="habitrac">
 <header id="mui_header" class="glow">
@@ -22,17 +22,25 @@
 </section>
 
 <section id="new_habit_page" class="mui_page">
-	<input id="habit_input" placeholder="Place habit here...">
+	<input id="habit_input" type="text" placeholder="Place habit here...">
 	<button id="add_habit_button" data-hlightclass="didit_press"><img src="images/check.png"> Add Habit</button>
 </section>
 
 <section id="edit_habit_page" class="mui_page">
-	<input id="edit_habit_input" placeholder="Place habit here...">
+	<input id="edit_habit_input"  type="text" placeholder="Place habit here...">
 	<button id="save_edit_habit_button" data-hlightclass="didit_press"><img src="images/check.png"> Edit Habit</button>
 </section>
 
 <section id="chart_page" class="mui_page">
-	<canvas id="habit_pie">Does not support canvas.</canvas>
+	<div id="pie_con" class="glow">
+		<h2 id="pie_chart_h2">---</h2>
+		<canvas id="habit_pie">Does not support canvas.</canvas>
+		<div id="chart_dates">			
+			<input placeholder="From" id="chart_date_from" class="chart_date">
+			<input placeholder="To" id="chart_date_to" class="chart_date"><br>
+			<button id="calculate_pie_chart_button" data-hlightclass="didit_press">Calculate Pie</button>
+		</div>
+	</div>	
 </section>
 
 <section id="habitrac_menu_popup_con" class="glow trans hide">

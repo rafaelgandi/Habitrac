@@ -46,11 +46,11 @@
 				habitId = trim($me.attr('data-habitid'));
 			Habitrac.Logic.showHabitListMenu(habitId);	
 		},
-		phoneBackButton: function () {
-			// other stuff should go here //
-			if (Mui.$CURRENT_PAGE.attr('id') === 'new_habit_page') {
-				Mui.gotoPage('habit_list_page');
-			}
+		phoneBackButton: function () {						
+			// Currently the back button always goes to 
+			// the "habit_list_page" page. 
+			// LM: 11-17-12
+			Mui.gotoPage('habit_list_page');
 			Habitrac.Logic.hideHabitListMenu();
 		},
 		deleteHabitMenuClicked: function () {
@@ -59,14 +59,14 @@
 			Util.confirm({
 				message: 'Do you really want to delete this habit?',
 				callback: function (button) {
-					if (button === 1 || button === true) {
+					if (button === 2 || button === true) {
 						Habitrac.Storage.deleteHabit(habitId);
 						Util.getElementFromCache('#habit_list').find('li[data-habitid="'+habitId+'"]').remove();
 						Habitrac.Logic.hideHabitListMenu();	
 					}
 				},
 				title: 'Delete Habit',
-				buttons: 'Yep,Nope'
+				buttons: 'Nope,Yep'
 			});							
 		},
 		editHabitMenuClicked: function () {
@@ -103,6 +103,9 @@
 				}, 300);					
 			};
 		})(),
+		inputTextBlur: function () {
+			self.scrollTo(0, 0);
+		},
 		pageEvents: {
 			new_habit_page: function () {
 				Util.getElementFromCache('#habit_input').val('').focus();
@@ -115,10 +118,20 @@
 				Util.getElementFromCache('#save_edit_habit_button').data('habitid', data.habitId);
 				Habitrac.Logic.hideHabitListMenu();
 			},
-			chart_page: function (e, $page, habitId) {
-				lab.script('js/Habitrac.Chart.js').wait(function () {
-					Habitrac.Chart.pie('habit_pie', 100, [40, 60], ['Failed', 'Did it!'], ['E33331', '82B221']);
-				});
+			chart_page: function (e, $page, habitId) {			
+				if (Habitrac.Chart !== undefined) { runChart(); }
+				else {
+					lab	.script('js/lib/mobiscroll-2.1.custom.min.js')
+						.script('js/Habitrac.Chart.js').wait(function () {
+						Habitrac.Chart.setUpMobiscroll();
+						runChart();
+					});	
+				}
+				
+				function runChart() {
+					Habitrac.Chart.pie('habit_pie', 100, [40, 60], ['Failed', 'Did it!'], ['E33331', '85C708']);
+				}
+				
 			}
 		}
 	};
@@ -135,6 +148,7 @@
 	$root.on('tap', '#save_edit_habit_button', Habitrac.Events.editNewHabit);
 	$root.on('longTap', 'span.habit_label', Habitrac.Events.showHabitListMenu);
 	$root.on('touchstart', Habitrac.Events.habitContextMenuBlur);
+	$root.on('blur', 'input[type="text"]', Habitrac.Events.inputTextBlur);
 	
 	$root.on('tap', '#delete_habit_button', Habitrac.Events.deleteHabitMenuClicked);
 	$root.on('tap', '#edit_habit_button', Habitrac.Events.editHabitMenuClicked);
