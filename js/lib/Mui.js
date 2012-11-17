@@ -53,7 +53,9 @@ Zepto(function () {
 		})();
 		
 		var resolvePageMinHeight = function () {
-			$muipages.css('minHeight', z(window).height()+'px');
+			//$muipages.css('minHeight', z(window).height()+'px');
+			//$muipages.css('minHeight', (self.screen.height+10)+'px');
+			//alert(z(window).height() + ' ==== '+ self.screen.height);
 		};
 		
 		var initEvents = function () {

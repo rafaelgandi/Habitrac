@@ -138,6 +138,8 @@ a:link {
 	top:50px;
 	left: 1000px;
 	display:none;
+	min-height: 410px; /* Specific for my LG Optimus L3 screen */
+	overflow-x: hidden;
 }
 .mui_page:first-child {
 	left: 0;

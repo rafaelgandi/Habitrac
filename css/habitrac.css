@@ -58,21 +58,24 @@ button img {
 #habit_list .failed_button {
 	background-color: #E33331;
 }
-#new_habit_page {
+#new_habit_page,
+#edit_habit_page {
 	padding-top: 40px;
 }
-#habit_input {
+#habit_input,
+#edit_habit_input {
 	font-size: 20px;
-	padding: 5px;
+	padding: 15px;
 	border: 1px solid #ccc;
 	display: block;
 	width: 90%;
 	margin:0 auto;
-	border-radius: 5px;
 	margin-bottom: 10px;
 	color: #666;
+	border-radius: 5px;
 }
-#add_habit_button {
+#add_habit_button,
+#save_edit_habit_button {
 	padding: 10px;
 	color: #fff;
 	border:0;
@@ -87,10 +90,10 @@ button img {
 button.header_b_hlight {
 	background-color:#8FB737 !important;
 }
-button.didit_press {	
+.didit_press {	
 	background-color:#2DA80F !important;
 }
-button.fail_press {	
+.fail_press {	
 	background-color:#E60A0C !important;
 }
 
@@ -99,7 +102,73 @@ button.fail_press {
 	transition: all 0.20s linear 0s;
 }
 
+#habit_list li {
+	-webkit-transition: background-color 0.40s linear 0s;
+	transition: background-color 0.40s linear 0s;
+}
 
+#habitrac_menu_popup_con {
+	position: fixed;
+	top: 70px;
+	left: 5px;
+	right: 5px;
+	background-color: #fff;
+	z-index: 200;
+	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);	
+}
+#habitrac_menu_popup_con li {
+	padding: 0 !important;
+	margin:0  !important;
+}
+#habitrac_menu_popup_con button {
+	font-family: 'RobotoRegular', Arial, sans-serif;
+	font-size: 16px;
+	background-color: transparent;
+	width: 100%;
+	border:0;
+	padding: 20px;
+}
+#habitrac_menu_popup_con button img {
+	width: 25px;
+	height: 25px;
+	vertical-align: middle;
+}
+button.menu_press {
+	background-color:#DBDBDB !important;
+}
+
+span.habit_label {
+	display:block;
+	padding:10px;
+	text-align: center;
+}
+
+#notification {
+	position: fixed;
+	bottom: 50px;
+	left: 10px;
+	right: 10px;
+	z-index: 200;
+	display: none;
+}
+
+#notification span {
+	display:block;
+	margin:0 auto;
+	background-color:#FCD209;
+	border: 2px solid #FCD209;
+	color:#fff;
+	width: 200px;
+	padding: 7px;
+	text-align: center;
+	border-radius: 5px;
+	font-size: 14px;
+}
+
+#chart_page {
+	padding: 10px;
+}
 
 
 

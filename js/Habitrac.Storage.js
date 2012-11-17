@@ -24,6 +24,14 @@
 		ls.setItem('habits', JSON.stringify(Habitrac.Globals.habits));
 		ls.setItem('habit_times',  JSON.stringify(Habitrac.Globals.habitTimes));
 	};
+	
+	Habitrac.Storage.deleteHabit = function (_habitId) {
+		delete Habitrac.Globals.habits[_habitId];
+		delete Habitrac.Globals.habitTimes[_habitId];
+		Habitrac.Storage.store();
+		try {Habitrac.Logic.notify('Habit with id '+_habitId+' has been deleted');} catch(e){}
+	};
+	
 	Habitrac.Storage.clear = function () {
 		ls.clear();
 		ls.setItem('habits', '{}');

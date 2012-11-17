@@ -21,32 +21,60 @@
 	<ul id="habit_list" class="mui_listview"></ul>
 </section>
 
-<section id="new_habit_page" class="mui_page ">
-	<input id="habit_input">
-	<button id="add_habit_button" data-hlightclass="didit_press"><img src="images/check.png"> Add</button>
+<section id="new_habit_page" class="mui_page">
+	<input id="habit_input" placeholder="Place habit here...">
+	<button id="add_habit_button" data-hlightclass="didit_press"><img src="images/check.png"> Add Habit</button>
 </section>
+
+<section id="edit_habit_page" class="mui_page">
+	<input id="edit_habit_input" placeholder="Place habit here...">
+	<button id="save_edit_habit_button" data-hlightclass="didit_press"><img src="images/check.png"> Edit Habit</button>
+</section>
+
+<section id="chart_page" class="mui_page">
+	<canvas id="habit_pie">Does not support canvas.</canvas>
+</section>
+
+<section id="habitrac_menu_popup_con" class="glow trans hide">
+	<ul id="habitrac_menu_list" class="mui_listview"></ul>
+</section>
+<div id="notification"><span  class="glow">---</span></div>
 
 <script>!window.PhoneGap && document.write("<script src='phonegap.js'>\x3C/script>");</script>
 <script src="js/lib/zepto.min.js"></script>
-<script src="js/lib/LAB.min.js"></script>
 <script src="js/lib/Mui.js"></script>
+<script src="js/lib/LAB.min.js"></script>
 <script src="js/Habitrac.Startups.js"></script>
 <script>
 var lab = $LAB,
-	z = Zepto;
+	z = Zepto;	
+lab.setGlobalDefaults({ 
+	CacheBust: true,
+	Debug: true	
+});	
 document.addEventListener('deviceready', function () {
-	lab.script('js/Habitrac.js')
-	.script('js/Habitrac.Storage.js')
-	.script('js/lib/tweet_tmpl.js')
+	lab
+	.script('js/Habitrac.js?_'+Math.random())
+	.script('js/Habitrac.Storage.js?_'+Math.random())
 	.wait(function () {
-		lab.script('js/lib/Util.js').script('js/Habitrac.Builder.js').wait(function () {
-			Habitrac.Builder.getTemplate('habit_list.html');
-			lab.script('js/Habitrac.Logic.js').wait(function () {				
+		lab.script('js/lib/Util.js?_'+Math.random())
+		.script('js/Habitrac.Builder.js?_'+Math.random()).wait(function () {
+			lab.script('js/Habitrac.Logic.js?_'+Math.random()).wait(function () {				
 				Habitrac.Logic.buildHabitList();
-				lab.script('js/Habitrac.Events.js');
+				lab.script('js/Habitrac.Events.js?_'+Math.random());
 			});			
 		});
 	});
 }, true);
+</script>
+
+<script type="text/html" id="habit_list_tpl">
+	<li data-habitid="{habit_id}"> 
+		<span class="habit_label" data-habitid="{habit_id}">{habit}</span>
+		<div>
+			<button data-habitid="{habit_id}" class="failed_button" data-hlightclass="fail_press">Failed</button>
+			<button data-habitid="{habit_id}" class="didit_button" data-hlightclass="didit_press">Did It!</button>				
+		</div>
+	</li>
 </script>
 </body></html>
