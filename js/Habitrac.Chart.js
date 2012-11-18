@@ -3,7 +3,7 @@
 	
 	// See: http://blog.crondesign.com/2012/05/simple-javascript-pie-chart-using-html5.html
 	// See: http://reubencrane.com/blog/?p=4
-	var pieProps = new Object();
+	var pieProps = {};
 	function W(x,y,r,u,v) {
 		var a = pieProps.a
 		r ? a.beginPath() | a.fill(a.moveTo(x,y)|a.arc(x,y,r,(u||0)/50*Math.PI,(v||7)/50*Math.PI,0)|a.lineTo(x,y))
@@ -39,6 +39,81 @@
 			preset: 'date',
 			display: 'modal'
 		});
+	};
+	
+	Habitrac.Chart.normalizeDate = function (_dateVar) {
+		_dateVar = _dateVar || (new Date()).getTime();
+		var d = new Date(_dateVar);
+		d.setHours(0);
+		d.setMinutes(59);
+		d.setSeconds(59);
+		d.setMilliseconds(0);
+		return d;
+	};
+	
+	Habitrac.Chart.collectHabitTimes = function (_habitId, _from, _to) {		
+		if (trim(_from) === '' && trim(_to) === '') {
+			// This runs on the initial load of a pie //
+			return Habitrac.Globals.habitTimes[_habitId];
+		}
+		var d = Habitrac.Chart.normalizeDate(),
+			now = d.getTime(),
+			from = (trim(_from) === '') ? now : Habitrac.Chart.normalizeDate(_from).getTime(),
+			to = (trim(_to) === '') ? now : Habitrac.Chart.normalizeDate(_to).getTime(),
+			hid = _habitId,
+			finalArr = [],
+			timestamp; 
+		Habitrac.Globals.habitTimes[hid].forEach(function (ht) {
+			timestamp = Habitrac.Chart.normalizeDate(parseInt(ht.t, 10)).getTime();
+			if (timestamp >= from && timestamp <= to) {
+				finalArr.push(ht);
+			}
+		});
+		return finalArr;
+	};
+	
+	Habitrac.Chart.extractData = function (_datesArr) {
+		if (! _datesArr.length) { return false; }
+		var returnObj = {
+			didit: 0,
+			fail: 0,
+			total: 0
+		};
+		_datesArr.forEach(function (log) {
+			if (parseInt(log.d, 10) === 1) {
+				returnObj.didit++;
+			}
+			else {
+				returnObj.fail++;
+			}
+			returnObj.total++;
+		});
+		return returnObj;
+	};
+	
+	Habitrac.Chart.writeCountLabels = function (_didit, _fail) {
+		_didit = _didit || 0;
+		_fail = _fail || 0;
+		Util.getElementFromCache('#didit_count').text(_didit);
+		Util.getElementFromCache('#fail_count').text(_fail);
+	};
+	
+	Habitrac.Chart.makePieChartForHabit = function (_habitId, _from, _to) {
+		var datesArr = Habitrac.Chart.collectHabitTimes(_habitId, _from, _to),
+			chartData = Habitrac.Chart.extractData(datesArr),
+			didit = 0,
+			fail = 0;
+		if (! chartData) {
+			Habitrac.Chart.writeCountLabels();
+			// Make empty pie
+			Habitrac.Chart.pie('habit_pie', 100, [100], ['None'], ['D4D0C8']);
+			return;
+		}
+		// Calculate percentage here //
+		didit = (chartData.didit / chartData.total) * 100;	
+		fail = (chartData.fail / chartData.total) * 100;	
+		Habitrac.Chart.writeCountLabels(chartData.didit, chartData.fail);
+		Habitrac.Chart.pie('habit_pie', 100, [fail, didit], [Math.round(fail)+'%', Math.round(didit)+'%'], ['E33331', '85C708']);
 	};
 	
 })(self, Zepto, self.Habitrac, self.localStorage);

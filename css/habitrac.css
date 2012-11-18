@@ -80,7 +80,6 @@ button img {
 	padding: 10px;
 	color: #fff;
 	border:0;
-	border-radius: 5px;
 	margin:0 auto;
 	display:block;
 	width: 150px;
@@ -118,11 +117,13 @@ button.header_b_hlight {
 	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 	margin: 0 auto;	
+	width: 260px;
+	border-radius: 3px;
 }
 #habitrac_menu_popup_con li {
 	padding: 0 !important;
 	margin:0  !important;
-	border-bottom: 1px solid #53C1E9;
+	border-bottom: 2px solid #53C1E9;
 }
 #habitrac_menu_popup_con li:last-child {
 	border:0;
@@ -143,7 +144,8 @@ button.header_b_hlight {
 	vertical-align: middle;
 }
 button.menu_press {
-	background-color:#DBDBDB !important;
+	background-color:#53C1E9 !important;
+	color: #fff;
 }
 
 span.habit_label {
@@ -154,7 +156,7 @@ span.habit_label {
 
 #notification {
 	position: fixed;
-	bottom: 50px;
+	top: 40px;
 	left: 10px;
 	right: 10px;
 	z-index: 200;
@@ -165,13 +167,13 @@ span.habit_label {
 	display:block;
 	margin:0 auto;
 	background-color:#FCD209;
-	border: 2px solid #FCD209;
+	border: 3px solid #fff;
 	color:#fff;
 	width: 200px;
 	padding: 7px;
 	text-align: center;
-	border-radius: 5px;
-	font-size: 14px;
+	border-radius: 10px;
+	font-size: 15px;
 }
 
 #chart_page {
@@ -189,6 +191,7 @@ span.habit_label {
 }
 #pie_con h2 {
 	font-size: 14px;
+	font-weight: normal;
 	text-align: center;
 	color: #666;
 	padding-top: 15px;
@@ -207,7 +210,7 @@ input.chart_date {
 	background-repeat: no-repeat;
 	padding: 5px;
 	padding-left: 30px;
-	width: 100px;
+	width: 123px;
 	border: 0;
 	color: #666;
 }
@@ -222,4 +225,17 @@ input.chart_date {
 	margin-bottom: 10px;
 }
 
+#pie_con p {
+	color: #ccc;
+	font-size: 12px;
+	padding: 10px;
+	text-align: center;
+	padding-top: 0;
+}
 
+#didit_count {
+	color: #82B221;	
+}
+#fail_count {
+	color: #E33331;
+}

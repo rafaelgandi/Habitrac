@@ -35,6 +35,7 @@
 	<div id="pie_con" class="glow">
 		<h2 id="pie_chart_h2">---</h2>
 		<canvas id="habit_pie">Does not support canvas.</canvas>
+		<p>Was able to do this habit <span id="didit_count">10</span> times and failed <span id="fail_count">6</span> times.</p>
 		<div id="chart_dates">			
 			<input placeholder="From" id="chart_date_from" class="chart_date">
 			<input placeholder="To" id="chart_date_to" class="chart_date"><br>
@@ -61,15 +62,16 @@ lab.setGlobalDefaults({
 	Debug: true	
 });	
 document.addEventListener('deviceready', function () {
+	var cb = (new Date()).getTime();
 	lab
-	.script('js/Habitrac.js?_'+Math.random())
-	.script('js/Habitrac.Storage.js?_'+Math.random())
+	.script('js/Habitrac.js?_'+cb)
+	.script('js/Habitrac.Storage.js?_'+cb)
 	.wait(function () {
-		lab.script('js/lib/Util.js?_'+Math.random())
-		.script('js/Habitrac.Builder.js?_'+Math.random()).wait(function () {
-			lab.script('js/Habitrac.Logic.js?_'+Math.random()).wait(function () {				
+		lab.script('js/lib/Util.js?_'+cb)
+		.script('js/Habitrac.Builder.js?_'+cb).wait(function () {
+			lab.script('js/Habitrac.Logic.js?_'+cb).wait(function () {				
 				Habitrac.Logic.buildHabitList();
-				lab.script('js/Habitrac.Events.js?_'+Math.random());
+				lab.script('js/Habitrac.Events.js?_'+cb);
 			});			
 		});
 	});

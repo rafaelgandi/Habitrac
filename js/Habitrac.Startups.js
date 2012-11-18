@@ -16,7 +16,7 @@ Zepto(function (z) {
 					   '<button class="exit" data-hlightclass="header_b_hlight"><img src="images/x.png"></button>'			
 		},
 		'chart_page': {
-			'label': '<img src="images/logo.png">Chart',
+			'label': '<img src="images/logo.png">Habit Pie',
 			'buttons': '<button id="back2list" data-hlightclass="header_b_hlight"><img src="images/back_button.png"></button>' +	
 					   '<button class="exit" data-hlightclass="header_b_hlight"><img src="images/x.png"></button>'			
 		}

@@ -1,11 +1,7 @@
 window.Habitrac = {};
 
-
-
 window.$root = z(document);
-trim = z.trim;
-
-
+window.trim = z.trim;
 
 Habitrac.Globals = {
 	habits: {},

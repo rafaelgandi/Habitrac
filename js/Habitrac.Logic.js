@@ -60,7 +60,7 @@
 		return function (_msg) {
 			clearTimeout(timer);
 			Util.getElementFromCache('#notification span').html(_msg);
-			Util.getElementFromCache('#notification').show().css({opacity:0.9});				
+			Util.getElementFromCache('#notification').show().css({opacity:1});				
 			timer = setTimeout(function () {
 				Util.getElementFromCache('#notification').animate({opacity: 0}, {
 					duration: 300,
@@ -93,17 +93,17 @@
 		_type = _type || 'didit';
 		_habitId = trim(_habitId);
 		var obj = {
-				time: (new Date()).getTime()
+				t: (new Date()).getTime()
 			};
 		if (Habitrac.Globals.habitTimes[_habitId] === undefined) {
 			alert('Unable to find habit with id: '+_habitId);
 			return;
 		}
 		if (_type === 'didit') {
-			obj.didit = 1; obj.fail = 0;
+			obj.d = 1; obj.f = 0;
 		}
 		else {
-			obj.didit = 0; obj.fail = 1;
+			obj.d = 0; obj.f = 1;
 		}
 		Habitrac.Globals.habitTimes[_habitId].push(obj);
 		Habitrac.Storage.store();
@@ -113,5 +113,6 @@
 		_habitId = trim(_habitId);
 		Mui.gotoPage('chart_page', _habitId);
 	};
+
 	
 })(self, Zepto, self.Habitrac, self.localStorage);

@@ -29,27 +29,35 @@
 			Habitrac.Logic.saveNewHabit(habit);
 			Mui.gotoPage('habit_list_page');
 		},		
-		pressDidItButton: function () {
+		pressedHabitLogButton: function () {
 			var $me = z(this),
 				habitId = trim($me.attr('data-habitid'));
-			Habitrac.Logic.logUserHabitAction(habitId, 'didit');
-			Habitrac.Logic.highlightList($me.parents('li'), $me.attr('data-hlightclass'));		
-		},
-		pressFailedButton: function () {
-			var $me = z(this),
-				habitId = trim($me.attr('data-habitid'));		
-			Habitrac.Logic.logUserHabitAction(habitId, 'failed');
-			Habitrac.Logic.highlightList($me.parents('li'), $me.attr('data-hlightclass'));		
+			Util.confirm({
+				message: 'Check a log for this habit?',
+				callback: function (button) {
+					if (button === 2 || button === true) {
+						Habitrac.Logic.logUserHabitAction(habitId, ($me.hasClass('didit_button')) ? 'didit' : 'failed');	
+						Habitrac.Logic.highlightList($me.parents('li'), $me.attr('data-hlightclass'));	
+					}
+				},
+				title: 'Habit Checkin',
+				buttons: 'Nope,Yep'
+			});							
 		},
 		showHabitListMenu: function () {
 			var $me = z(this),
 				habitId = trim($me.attr('data-habitid'));
 			Habitrac.Logic.showHabitListMenu(habitId);	
 		},
-		phoneBackButton: function () {						
-			// Currently the back button always goes to 
+		phoneBackButton: function () {
+			if (Mui.$CURRENT_PAGE.attr('id') === 'habit_list_page') {
+				// If the phones back button is pressed in the habit_list_page,
+				// this automatically closes the app.
+				Habitrac.Logic.exitApp();
+			}
+			// Currently the back button mostly goes to 
 			// the "habit_list_page" page. 
-			// LM: 11-17-12
+			// LM: 11-18-12
 			Mui.gotoPage('habit_list_page');
 			Habitrac.Logic.hideHabitListMenu();
 		},
@@ -106,6 +114,13 @@
 		inputTextBlur: function () {
 			self.scrollTo(0, 0);
 		},
+		calculateHabitPieChartButtonPressed: function () {
+			var from = trim(Util.getElementFromCache('#chart_date_from').val()),
+				to = trim(Util.getElementFromCache('#chart_date_to').val()),
+				habitId = trim($(this).data('habitid'));
+			// Generate pie chart here //	
+			Habitrac.Chart.makePieChartForHabit(habitId, from, to);
+		},
 		pageEvents: {
 			new_habit_page: function () {
 				Util.getElementFromCache('#habit_input').val('').focus();
@@ -121,15 +136,20 @@
 			chart_page: function (e, $page, habitId) {			
 				if (Habitrac.Chart !== undefined) { runChart(); }
 				else {
-					lab	.script('js/lib/mobiscroll-2.1.custom.min.js')
-						.script('js/Habitrac.Chart.js').wait(function () {
-						Habitrac.Chart.setUpMobiscroll();
-						runChart();
-					});	
-				}
-				
+					lab.script('js/lib/mobiscroll-2.1.custom.min.js')
+					   .script('js/Habitrac.Chart.js?_'+Math.random()).wait(function () {
+							Habitrac.Chart.setUpMobiscroll();
+							runChart();
+						});	
+				}				
 				function runChart() {
-					Habitrac.Chart.pie('habit_pie', 100, [40, 60], ['Failed', 'Did it!'], ['E33331', '85C708']);
+					Util.getElementFromCache('#chart_date_from').val('');
+					Util.getElementFromCache('#chart_date_to').val('');					
+					Util.getElementFromCache('#calculate_pie_chart_button').data('habitid', trim(habitId));
+					// Make initial pie chart. The 'from' and 'to' variables here
+					// should be empty.
+					Habitrac.Chart.makePieChartForHabit(trim(habitId), '', '');
+					Util.getElementFromCache('#pie_chart_h2').text(Habitrac.Globals.habits[habitId]);
 				}
 				
 			}
@@ -137,26 +157,23 @@
 	};
 	
 	
-	// Button highlighting //
-	$root.on('touchstart touchmove touchend', 'button[data-hlightclass]',  Habitrac.Events.buttonHighLight);	
-	$root.on('tap', '.exit', Habitrac.Events.exit);	// Exit //
+	$root.on('touchstart touchmove touchend', 'button[data-hlightclass]',  Habitrac.Events.buttonHighLight); // Button highlighting	
+	$root.on('tap', 'button.exit', Habitrac.Events.exit);	// Exit //
 	$root.on('tap', '#back2list', Habitrac.Events.gotoHabitListPage);
 	$root.on('tap', '#add_habit_h_button', Habitrac.Events.gotoAddHabitPage);
 	$root.on('tap', '#add_habit_button', Habitrac.Events.addNewHabit);
-	$root.on('tap', 'button.didit_button', Habitrac.Events.pressDidItButton);
-	$root.on('tap', 'button.failed_button', Habitrac.Events.pressDidItButton);
+	$root.on('tap', 'button.didit_button, button.failed_button', Habitrac.Events.pressedHabitLogButton);
 	$root.on('tap', '#save_edit_habit_button', Habitrac.Events.editNewHabit);
 	$root.on('longTap', 'span.habit_label', Habitrac.Events.showHabitListMenu);
 	$root.on('touchstart', Habitrac.Events.habitContextMenuBlur);
 	$root.on('blur', 'input[type="text"]', Habitrac.Events.inputTextBlur);
-	
+	$root.on('tap', '#calculate_pie_chart_button', Habitrac.Events.calculateHabitPieChartButtonPressed);	
+	// Habit list context menu events //
 	$root.on('tap', '#delete_habit_button', Habitrac.Events.deleteHabitMenuClicked);
 	$root.on('tap', '#edit_habit_button', Habitrac.Events.editHabitMenuClicked);
-	$root.on('tap', '#habit_chart_menu_button', Habitrac.Events.chartMenuClicked);
-	
+	$root.on('tap', '#habit_chart_menu_button', Habitrac.Events.chartMenuClicked);	
 	//Phonegap events//
-	document.addEventListener('backbutton', Habitrac.Events.phoneBackButton, false);	
-	
+	document.addEventListener('backbutton', Habitrac.Events.phoneBackButton, false);		
 	// Page events //
 	$root.on('new_habit_page', Habitrac.Events.pageEvents.new_habit_page);
 	$root.on('habit_list_page', Habitrac.Events.pageEvents.habit_list_page);
