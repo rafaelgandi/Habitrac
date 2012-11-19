@@ -51,9 +51,13 @@
 		},
 		phoneBackButton: function () {
 			if (Mui.$CURRENT_PAGE.attr('id') === 'habit_list_page') {
-				// If the phones back button is pressed in the habit_list_page,
-				// this automatically closes the app.
-				Habitrac.Logic.exitApp();
+				// Check if the habit context menu is hdden, if it is then the user(me)
+				// probably wants to close the app.
+				if (Util.getElementFromCache('#habitrac_menu_popup_con').hasClass('hide')) {
+					// If the phones back button is pressed in the habit_list_page, and the
+					// habit list context menu is closed this automatically closes the app.
+					Habitrac.Logic.exitApp();	
+				}			
 			}
 			// Currently the back button mostly goes to 
 			// the "habit_list_page" page. 

@@ -10,6 +10,7 @@ body {
 	padding: 0;
 	font-family: 'RobotoRegular', Arial, sans-serif;
 	font: 18px/27px;
+	overflow-x: hidden !important;
 }
 #mui_header {
 	background-color:#80C801;
@@ -213,6 +214,7 @@ input.chart_date {
 	width: 123px;
 	border: 0;
 	color: #666;
+	border-bottom: 1px solid #80C801;
 }
 #chart_date_from {
 	margin-right: 5px;
@@ -238,4 +240,9 @@ input.chart_date {
 }
 #fail_count {
 	color: #E33331;
+}
+
+#new_habit_page, 
+#edit_habit_page {
+	overflow: hiddden;
 }
