@@ -16,7 +16,7 @@ body {
 	background-color:#80C801;
 }
 .mui_page {
-	background-image: url('../images/texture7.png');
+	/* background-image: url('../images/texture7.png'); */
 	/* See: http://sublimeorange.com/css/css3-inner-shadow/ */
 	/* See: http://www.red-team-design.com/how-to-create-slick-effects-with-css3-box-shadow */
 	-webkit-box-shadow:inset 0 0 20px rgba(50, 50, 50, 0.6);
@@ -71,13 +71,15 @@ button img {
 #edit_habit_input {
 	font-size: 20px;
 	padding: 15px;
-	border: 2px solid #ebc67c;
 	display: block;
 	width: 90%;
 	margin:0 auto;
 	margin-bottom: 10px;
 	color: #666;
-	border-radius: 5px;
+	border:0;
+	border-bottom: 1px solid #82B221;
+	padding-bottom: 5px;
+	padding-left: 5px;
 }
 #add_habit_button,
 #save_edit_habit_button,

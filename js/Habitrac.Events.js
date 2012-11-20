@@ -77,7 +77,12 @@
 			Habitrac.Logic.hideHabitListMenu();
 		},
 		phoneMenuButton: function () {
-			Mui.gotoPage('menu_page');
+			if (Mui.$CURRENT_PAGE.attr('id') !== 'menu_page') {
+				Mui.gotoPage('menu_page');
+			}
+			else {
+				Mui.gotoPage('habit_list_page');
+			}
 		},
 		deleteHabitMenuClicked: function () {
 			var $me = z(this),

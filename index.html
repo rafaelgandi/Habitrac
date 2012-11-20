@@ -53,6 +53,16 @@ document.addEventListener('deviceready', function () {
 	.wait(function () {
 		lab.script('js/lib/Util.js?_'+cb)
 		.script('js/Habitrac.Builder.js?_'+cb).wait(function () {
+			lab.script('js/Habitrac.Logic.js?_'+cb).wait(function () {				
+				Habitrac.Builder.ajaxTemplate('menu_page.html', function (html) {
+					Util.getElementFromCache('#app_menu_list').html(html);
+				});
+				Habitrac.Builder.ajaxTemplate('about_page.html', function (html) {
+					Util.getElementFromCache('#about_page').html(html);
+				});
+				Habitrac.Logic.buildHabitList();			
+				lab.script('js/Habitrac.Events.js?_'+cb);
+			});	
 			// Start building the markup of some of the pages here //
 			Habitrac.Builder.ajaxTemplate('chart_page.html', function (html) {
 				Util.getElementFromCache('#pie_con').html(html);
@@ -63,16 +73,6 @@ document.addEventListener('deviceready', function () {
 			Habitrac.Builder.ajaxTemplate('edit_habit_page.html', function (html) {
 				Util.getElementFromCache('#edit_habit_page').html(html);
 			});
-			lab.script('js/Habitrac.Logic.js?_'+cb).wait(function () {				
-				Habitrac.Logic.buildHabitList();			
-				lab.script('js/Habitrac.Events.js?_'+cb);
-				Habitrac.Builder.ajaxTemplate('menu_page.html', function (html) {
-					Util.getElementFromCache('#app_menu_list').html(html);
-				});
-				Habitrac.Builder.ajaxTemplate('about_page.html', function (html) {
-					Util.getElementFromCache('#about_page').html(html);
-				});
-			});			
 		});
 	});
 }, true);

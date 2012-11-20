@@ -130,12 +130,13 @@ Zepto(function () {
 					if (prevPageIndex <= newPageIndex) {						
 						$page.animate({left:'0px'}, {
 							complete: onComplete,
-							easing: 'ease'
+							easing: 'ease',
+							duration: 200
 						}); // right to left 			
 					}
 					else {	
 						$page.css('left', '0px');
-						getPagesGreaterThanIndex(newPageIndex).animate({left:'1000px'}, {complete: onComplete}); // left to right	
+						getPagesGreaterThanIndex(newPageIndex).animate({left:'700px'}, {complete: onComplete}); // left to right	
 					}																	
 					$root.trigger('mui_beforepagechange', [Mui.$CURRENT_PAGE]);	
 					Mui.$CURRENT_PAGE = $page;
