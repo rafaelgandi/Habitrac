@@ -17,6 +17,10 @@ body {
 }
 .mui_page {
 	background-image: url('../images/texture7.png');
+	/* See: http://sublimeorange.com/css/css3-inner-shadow/ */
+	/* See: http://www.red-team-design.com/how-to-create-slick-effects-with-css3-box-shadow */
+	-webkit-box-shadow:inset 0 0 20px rgba(50, 50, 50, 0.6);
+	box-shadow:inset 0 0 20px rgba(50, 50, 50, 0.6);
 }
 .mui_page button {
 	text-shadow: 0 -1px 0 #4c9021;
@@ -119,17 +123,20 @@ button.header_b_hlight {
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 	margin: 0 auto;	
 	width: 260px;
-	border-radius: 3px;
+	border-radius: 4px;
 }
-#habitrac_menu_popup_con li {
+#habitrac_menu_popup_con li,
+#app_menu_list li {
 	padding: 0 !important;
 	margin:0  !important;
 	border-bottom: 2px solid #53C1E9;
 }
-#habitrac_menu_popup_con li:last-child {
+#habitrac_menu_popup_con li:last-child,
+#app_menu_list li:last-child {
 	border:0;
 }
-#habitrac_menu_popup_con button {
+#habitrac_menu_popup_con button,
+#app_menu_list button {
 	font-family: 'RobotoRegular', Arial, sans-serif;
 	font-size: 16px;
 	background-color: transparent;
@@ -241,8 +248,65 @@ input.chart_date {
 #fail_count {
 	color: #E33331;
 }
-
-#new_habit_page, 
-#edit_habit_page {
-	overflow: hiddden;
+#app_menu_list li {
+	border: 1px solid #ccc;
 }
+#app_menu_list button {
+	text-align: left;
+}
+#app_menu_list button sub {
+	text-shadow: 0 -0 0 #fff;
+}
+.app_menu_pressed {
+	background-color: #8FB737 !important;
+}
+#about_page {
+	background-image: url('../images/pixme.jpg');
+	background-position: center;
+	background-repeat: no-repeat;
+	padding: 10px;
+}
+#about_page {
+	font-family: Georgia,Times,serif !important;
+	color: #666;
+}
+#about_page h2 {
+	padding-top: 10px;
+	font-size: 47px;
+	font-weight: 400;
+	letter-spacing: -2px;
+	line-height: 1.25em;
+	width: 173px;
+	margin: 0 auto;
+	display: block;
+	text-shadow: 0 -1px 0 #ccc;
+}
+#about_page p {
+	text-align: center !important;
+	font-weight: bold;
+}
+#about_page sub {
+	font-size: 13px;
+	color: #999;
+	text-decoration: underline;
+}
+#about_page .external_codes {
+	margin-top: 20px;
+	text-align: center !important;
+	font-size: 11px;
+	color: #ccc;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

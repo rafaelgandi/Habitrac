@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- LM: 11-20-12 -->
 <html lang="en">
 <head>
 	<meta charset="utf-8">
@@ -15,40 +16,23 @@
 	<span id="mui_header_side_button_con"></span>
 </header>
 
-
-
 <section id="habit_list_page" class="mui_page mui_active_page">
 	<ul id="habit_list" class="mui_listview"></ul>
 </section>
-
-<section id="new_habit_page" class="mui_page">
-	<input id="habit_input" type="text" placeholder="Place habit here...">
-	<button id="add_habit_button" data-hlightclass="didit_press"><img src="images/check.png"> Add Habit</button>
-</section>
-
-<section id="edit_habit_page" class="mui_page">
-	<input id="edit_habit_input"  type="text" placeholder="Place habit here...">
-	<button id="save_edit_habit_button" data-hlightclass="didit_press"><img src="images/check.png"> Edit Habit</button>
-</section>
-
+<section id="new_habit_page" class="mui_page"></section>
+<section id="edit_habit_page" class="mui_page"></section>
 <section id="chart_page" class="mui_page">
-	<div id="pie_con" class="glow">
-		<h2 id="pie_chart_h2">---</h2>
-		<canvas id="habit_pie">Does not support canvas.</canvas>
-		<p>Was able to do this habit <span id="didit_count">10</span> times and failed <span id="fail_count">6</span> times.</p>
-		<div id="chart_dates">			
-			<input placeholder="From" id="chart_date_from" class="chart_date">
-			<input placeholder="To" id="chart_date_to" class="chart_date"><br>
-			<button id="calculate_pie_chart_button" data-hlightclass="didit_press">Calculate Pie</button>
-		</div>
-	</div>	
+	<div id="pie_con" class="glow"></div>	
 </section>
+<section id="menu_page" class="mui_page">
+	<ul id="app_menu_list" class="mui_listview"></ul>
+</section>
+<section id="about_page" class="mui_page"></section>
 
 <section id="habitrac_menu_popup_con" class="glow trans hide">
 	<ul id="habitrac_menu_list" class="mui_listview"></ul>
 </section>
 <div id="notification"><span  class="glow">---</span></div>
-
 <script>!window.PhoneGap && document.write("<script src='phonegap.js'>\x3C/script>");</script>
 <script src="js/lib/zepto.min.js"></script>
 <script src="js/lib/Mui.js"></script>
@@ -69,9 +53,25 @@ document.addEventListener('deviceready', function () {
 	.wait(function () {
 		lab.script('js/lib/Util.js?_'+cb)
 		.script('js/Habitrac.Builder.js?_'+cb).wait(function () {
+			// Start building the markup of some of the pages here //
+			Habitrac.Builder.ajaxTemplate('chart_page.html', function (html) {
+				Util.getElementFromCache('#pie_con').html(html);
+			});
+			Habitrac.Builder.ajaxTemplate('new_habit_page.html', function (html) {
+				Util.getElementFromCache('#new_habit_page').html(html);
+			});
+			Habitrac.Builder.ajaxTemplate('edit_habit_page.html', function (html) {
+				Util.getElementFromCache('#edit_habit_page').html(html);
+			});
 			lab.script('js/Habitrac.Logic.js?_'+cb).wait(function () {				
-				Habitrac.Logic.buildHabitList();
+				Habitrac.Logic.buildHabitList();			
 				lab.script('js/Habitrac.Events.js?_'+cb);
+				Habitrac.Builder.ajaxTemplate('menu_page.html', function (html) {
+					Util.getElementFromCache('#app_menu_list').html(html);
+				});
+				Habitrac.Builder.ajaxTemplate('about_page.html', function (html) {
+					Util.getElementFromCache('#about_page').html(html);
+				});
 			});			
 		});
 	});

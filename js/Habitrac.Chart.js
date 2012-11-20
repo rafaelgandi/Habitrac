@@ -98,6 +98,28 @@
 		Util.getElementFromCache('#fail_count').text(_fail);
 	};
 	
+	Habitrac.Chart.calculateHabitAgeInDays = (function () {
+		var dateDiffs = {},
+			startDates = {};
+		return function (_habitId) {
+			if (! dateDiffs[_habitId]) {
+				var habitBirthDate = parseInt(_habitId, 10) / 1000,
+					now = (new Date()).getTime() / 1000,
+					timeDiffInSec, timeDiffInHrs, timeDiffInDays;
+				// This is the calculated difference in seconds //		
+				timeDiffInSec = now - habitBirthDate;	
+				// This is the calculated difference in hours //	
+				timeDiffInHrs = (timeDiffInSec / 60) / 60;
+				// This is the calculated difference in days //	
+				timeDiffInDays = timeDiffInHrs / 24;
+				dateDiffs[_habitId] = Math.round(timeDiffInDays);
+				startDates[_habitId] = (new Date(parseInt(_habitId, 10))).toString();
+			}
+			Util.getElementFromCache('#habit_days_diff').text(dateDiffs[_habitId]);
+			Util.getElementFromCache('#habit_date_added').text(startDates[_habitId]);
+		};
+	})();
+	
 	Habitrac.Chart.makePieChartForHabit = function (_habitId, _from, _to) {
 		var datesArr = Habitrac.Chart.collectHabitTimes(_habitId, _from, _to),
 			chartData = Habitrac.Chart.extractData(datesArr),
@@ -105,7 +127,8 @@
 			fail = 0;
 		if (! chartData) {
 			Habitrac.Chart.writeCountLabels();
-			// Make empty pie
+			Habitrac.Chart.calculateHabitAgeInDays(_habitId);
+			// Make empty pie		
 			Habitrac.Chart.pie('habit_pie', 100, [100], ['None'], ['D4D0C8']);
 			return;
 		}
@@ -113,6 +136,7 @@
 		didit = (chartData.didit / chartData.total) * 100;	
 		fail = (chartData.fail / chartData.total) * 100;	
 		Habitrac.Chart.writeCountLabels(chartData.didit, chartData.fail);
+		Habitrac.Chart.calculateHabitAgeInDays(_habitId);
 		Habitrac.Chart.pie('habit_pie', 100, [fail, didit], [Math.round(fail)+'%', Math.round(didit)+'%'], ['E33331', '85C708']);
 	};
 	

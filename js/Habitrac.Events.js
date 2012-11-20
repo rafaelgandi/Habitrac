@@ -50,20 +50,34 @@
 			Habitrac.Logic.showHabitListMenu(habitId);	
 		},
 		phoneBackButton: function () {
-			if (Mui.$CURRENT_PAGE.attr('id') === 'habit_list_page') {
+			var currPageId = Mui.$CURRENT_PAGE.attr('id');
+			if (currPageId === 'habit_list_page') {
 				// Check if the habit context menu is hdden, if it is then the user(me)
 				// probably wants to close the app.
 				if (Util.getElementFromCache('#habitrac_menu_popup_con').hasClass('hide')) {
 					// If the phones back button is pressed in the habit_list_page, and the
 					// habit list context menu is closed this automatically closes the app.
-					Habitrac.Logic.exitApp();	
+					Habitrac.Logic.exitApp();
+					return;					
 				}			
+			}
+			if (currPageId === 'chart_page') {
+				// If we are in the "chart_page" and mobiscroll is visible. The back button
+				// will close mobiscroll rather than navigate to "habit_list_page".
+				if (z('div.android-ics').length) {
+					// See: http://docs.mobiscroll.com/21/mobiscroll-core
+					Util.getElementFromCache('#chart_date_from, #chart_date_to').scroller('hide');
+					return;
+				}
 			}
 			// Currently the back button mostly goes to 
 			// the "habit_list_page" page. 
 			// LM: 11-18-12
 			Mui.gotoPage('habit_list_page');
 			Habitrac.Logic.hideHabitListMenu();
+		},
+		phoneMenuButton: function () {
+			Mui.gotoPage('menu_page');
 		},
 		deleteHabitMenuClicked: function () {
 			var $me = z(this),
@@ -125,6 +139,9 @@
 			// Generate pie chart here //	
 			Habitrac.Chart.makePieChartForHabit(habitId, from, to);
 		},
+		gotoAboutPageButtonPressed: function () {
+			Mui.gotoPage('about_page');
+		},
 		pageEvents: {
 			new_habit_page: function () {
 				Util.getElementFromCache('#habit_input').val('').focus();
@@ -172,12 +189,14 @@
 	$root.on('touchstart', Habitrac.Events.habitContextMenuBlur);
 	$root.on('blur', 'input[type="text"]', Habitrac.Events.inputTextBlur);
 	$root.on('tap', '#calculate_pie_chart_button', Habitrac.Events.calculateHabitPieChartButtonPressed);	
+	$root.on('tap', '#goto_about_page_button', Habitrac.Events.gotoAboutPageButtonPressed);	
 	// Habit list context menu events //
 	$root.on('tap', '#delete_habit_button', Habitrac.Events.deleteHabitMenuClicked);
 	$root.on('tap', '#edit_habit_button', Habitrac.Events.editHabitMenuClicked);
 	$root.on('tap', '#habit_chart_menu_button', Habitrac.Events.chartMenuClicked);	
 	//Phonegap events//
 	document.addEventListener('backbutton', Habitrac.Events.phoneBackButton, false);		
+	document.addEventListener('menubutton', Habitrac.Events.phoneMenuButton, false);		
 	// Page events //
 	$root.on('new_habit_page', Habitrac.Events.pageEvents.new_habit_page);
 	$root.on('habit_list_page', Habitrac.Events.pageEvents.habit_list_page);

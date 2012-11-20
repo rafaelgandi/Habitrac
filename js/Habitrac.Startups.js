@@ -19,6 +19,16 @@ Zepto(function (z) {
 			'label': '<img src="images/logo.png">Habit Pie',
 			'buttons': '<button id="back2list" data-hlightclass="header_b_hlight"><img src="images/back_button.png"></button>' +	
 					   '<button class="exit" data-hlightclass="header_b_hlight"><img src="images/x.png"></button>'			
+		},
+		'menu_page': {
+			'label': '<img src="images/logo.png">Settings',
+			'buttons': '<button id="back2list" data-hlightclass="header_b_hlight"><img src="images/back_button.png"></button>' +	
+					   '<button class="exit" data-hlightclass="header_b_hlight"><img src="images/x.png"></button>'			
+		},
+		'about_page': {
+			'label': '<img src="images/logo.png">About',
+			'buttons': '<button id="back2list" data-hlightclass="header_b_hlight"><img src="images/back_button.png"></button>' +	
+					   '<button class="exit" data-hlightclass="header_b_hlight"><img src="images/x.png"></button>'			
 		}
 	})
 	.buildHeaderMarkupForPageId('habit_list_page');
