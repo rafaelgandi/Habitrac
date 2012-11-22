@@ -77,6 +77,7 @@
 			Habitrac.Logic.hideHabitListMenu();
 		},
 		phoneMenuButton: function () {
+			Habitrac.Logic.hideHabitListMenu();
 			if (Mui.$CURRENT_PAGE.attr('id') !== 'menu_page') {
 				Mui.gotoPage('menu_page');
 			}
