@@ -112,7 +112,7 @@
 				timeDiffInHrs = (timeDiffInSec / 60) / 60;
 				// This is the calculated difference in days //	
 				timeDiffInDays = timeDiffInHrs / 24;
-				dateDiffs[_habitId] = Math.round(timeDiffInDays);
+				dateDiffs[_habitId] = Math.ceil(timeDiffInDays); 
 				startDates[_habitId] = (new Date(parseInt(_habitId, 10))).toString();
 			}
 			Util.getElementFromCache('#habit_days_diff').text(dateDiffs[_habitId]);
