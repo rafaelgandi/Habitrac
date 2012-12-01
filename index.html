@@ -36,43 +36,26 @@
 <script>!window.PhoneGap && document.write("<script src='phonegap.js'>\x3C/script>");</script>
 <script src="js/lib/zepto.min.js"></script>
 <script src="js/lib/Mui.js"></script>
-<script src="js/lib/LAB.min.js"></script>
+<script src="js/lib/runwhen.js"></script>
 <script src="js/Habitrac.Startups.js"></script>
 <script>
-var lab = $LAB,
-	z = Zepto;	
-lab.setGlobalDefaults({ 
-	CacheBust: true,
-	Debug: true	
-});	
+var z = Zepto;	
 document.addEventListener('deviceready', function () {
-	var cb = (new Date()).getTime();
-	lab
-	.script('js/Habitrac.js?_'+cb)
-	.script('js/Habitrac.Storage.js?_'+cb)
-	.wait(function () {
-		lab.script('js/lib/Util.js?_'+cb)
-		.script('js/Habitrac.Builder.js?_'+cb).wait(function () {
-			lab.script('js/Habitrac.Logic.js?_'+cb).wait(function () {				
-				Habitrac.Builder.ajaxTemplate('menu_page.html', function (html) {
-					Util.getElementFromCache('#app_menu_list').html(html);
+	loadScript('js/Habitrac.js');
+	loadScript('js/lib/Util.js');
+	loadScript('js/Habitrac.Storage.js', function () {
+		runwhen(['window.Habitrac', 'window.Util'], function () {			
+			loadScript('js/Habitrac.Builder.js');			
+			runwhen('Habitrac.Builder', function () {
+				// Start building the markup of some of the pages here //
+				Habitrac.Builder.buildPages();
+			});			
+			loadScript('js/Habitrac.Logic.js', function () {
+				runwhen('Habitrac.Builder', function () {
+					Habitrac.Logic.buildHabitList();					
 				});
-				Habitrac.Builder.ajaxTemplate('about_page.html', function (html) {
-					Util.getElementFromCache('#about_page').html(html);
-				});
-				Habitrac.Logic.buildHabitList();			
-				lab.script('js/Habitrac.Events.js?_'+cb);
-			});	
-			// Start building the markup of some of the pages here //
-			Habitrac.Builder.ajaxTemplate('chart_page.html', function (html) {
-				Util.getElementFromCache('#pie_con').html(html);
-			});
-			Habitrac.Builder.ajaxTemplate('new_habit_page.html', function (html) {
-				Util.getElementFromCache('#new_habit_page').html(html);
-			});
-			Habitrac.Builder.ajaxTemplate('edit_habit_page.html', function (html) {
-				Util.getElementFromCache('#edit_habit_page').html(html);
-			});
+				loadScript('js/Habitrac.Events.js');
+			});			
 		});
 	});
 }, true);

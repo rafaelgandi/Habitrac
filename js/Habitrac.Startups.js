@@ -1,3 +1,24 @@
+function isMobile() {
+	var undefined;
+	return (window.device !== undefined && window.device.phonegap !== undefined && navigator.notification !== undefined && navigator.notification.vibrate !== undefined);
+}
+// See: http://www.nczonline.net/blog/2009/06/23/loading-javascript-without-blocking/
+function loadScript(url, callback){
+    var script = document.createElement("script"),
+		callback = callback || function () {};
+    script.type = "text/javascript";  
+	script.onload = function(){
+		callback();
+	};
+	// Don't use  querystring cache busters as it will cause issues 
+	// in android 4.0+
+	// See: http://code.google.com/p/android/issues/detail?id=17535
+    //script.src = url+'?23421';
+    script.src = url; //+ ((! isMobile()) ? '?'+(new Date()).getTime() : '');
+    document.body.appendChild(script);
+}
+
+
 Zepto(function (z) {	
 	Mui.setHeaderMarkup({
 		'habit_list_page': {

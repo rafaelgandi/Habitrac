@@ -31,13 +31,22 @@
 	};
 	
 	Habitrac.Chart.setUpMobiscroll = function () {
-		var $dateField = Util.getElementFromCache('#chart_date_from, #chart_date_to');
+		var $dateField = Util.getElementFromCache('#chart_date_from, #chart_date_to'),
+			$header = Util.getElementFromCache('#mui_header');
 		// See: http://docs.mobiscroll.com/
 		$dateField.scroller({
 			theme: 'android-ics light',
 			mode: 'scroller',
 			preset: 'date',
-			display: 'modal'
+			display: 'modal',
+			// Mobiscorll issue on android 4.0+ workaround.
+			// See: http://code.google.com/p/mobiscroll/issues/detail?id=96
+			onShow: function (html, inst) {
+				$header.css('position', 'absolute');
+			},
+			onClose: function (html, inst) {
+				$header.css('position', 'fixed');
+			}
 		});
 	};
 	

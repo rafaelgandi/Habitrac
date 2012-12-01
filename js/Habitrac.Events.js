@@ -49,7 +49,7 @@
 				habitId = trim($me.attr('data-habitid'));
 			Habitrac.Logic.showHabitListMenu(habitId);	
 		},
-		phoneBackButton: function () {
+		phoneBackButton: function () {			
 			var currPageId = Mui.$CURRENT_PAGE.attr('id');
 			if (currPageId === 'habit_list_page') {
 				// Check if the habit context menu is hdden, if it is then the user(me)
@@ -76,7 +76,7 @@
 			Mui.gotoPage('habit_list_page');
 			Habitrac.Logic.hideHabitListMenu();
 		},
-		phoneMenuButton: function () {
+		phoneMenuButton: function () {			
 			Habitrac.Logic.hideHabitListMenu();
 			if (Mui.$CURRENT_PAGE.attr('id') !== 'menu_page') {
 				Mui.gotoPage('menu_page');
@@ -163,11 +163,12 @@
 			chart_page: function (e, $page, habitId) {			
 				if (Habitrac.Chart !== undefined) { runChart(); }
 				else {
-					lab.script('js/lib/mobiscroll-2.1.custom.min.js')
-					   .script('js/Habitrac.Chart.js?_'+Math.random()).wait(function () {
+					loadScript('js/lib/mobiscroll-2.1.custom.min.js', function () {
+						loadScript('js/Habitrac.Chart.js', function () {
 							Habitrac.Chart.setUpMobiscroll();
 							runChart();
-						});	
+						});
+					});				
 				}				
 				function runChart() {
 					Util.getElementFromCache('#chart_date_from').val('');
