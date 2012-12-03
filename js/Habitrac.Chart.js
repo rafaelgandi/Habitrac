@@ -36,7 +36,8 @@
 		// See: http://docs.mobiscroll.com/
 		$dateField.scroller({
 			theme: 'android-ics light',
-			mode: 'scroller',
+			//mode: 'scroller',
+			mode: 'clickpick',
 			preset: 'date',
 			display: 'modal',
 			// Mobiscorll issue on android 4.0+ workaround.

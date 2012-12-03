@@ -9,3 +9,5 @@ Habitrac.Globals = {
 	tplDir: 'templates/'
 };
 
+// touch events
+// https://github.com/bebraw/jswiki/wiki/Touch

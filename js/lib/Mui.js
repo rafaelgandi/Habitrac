@@ -3,7 +3,7 @@
 		- This is my personal mobile ui framework template. Very basic!
 		- This is primarily built for my Android 2.3.6 LG Optimus E400 L3 phone.
 		- Dependent on Zepto.js
-	LM: 11-03-12	
+	LM: 12-03-12	
  */
 Zepto(function () {
 	window.Mui = (function (self, document, z, undefined) {
@@ -128,7 +128,10 @@ Zepto(function () {
 					};
 					// The code below controls the page slide left/right functionality //	
 					if (prevPageIndex <= newPageIndex) {						
-						$page.animate({left:'0px'}, {
+						$page.animate({
+							//'transform': 'translate3d(0px, 0, 0)',
+							'left':'0px'
+						}, {
 							complete: onComplete,
 							easing: 'ease',
 							duration: 200
@@ -136,7 +139,10 @@ Zepto(function () {
 					}
 					else {	
 						$page.css('left', '0px');
-						getPagesGreaterThanIndex(newPageIndex).animate({left:'700px'}, {complete: onComplete}); // left to right	
+						getPagesGreaterThanIndex(newPageIndex).animate({
+							//'transform': 'translate3d(700px, 0, 0)',
+							'left':'700px'
+						}, {complete: onComplete}); // left to right	
 					}																	
 					$root.trigger('mui_beforepagechange', [Mui.$CURRENT_PAGE]);	
 					Mui.$CURRENT_PAGE = $page;

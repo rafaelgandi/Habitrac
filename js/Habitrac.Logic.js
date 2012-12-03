@@ -1,6 +1,5 @@
 (function (self, z, Habitrac, ls, undefined) {
 	Habitrac.Logic = {};
-	
 	Habitrac.Logic.exitApp = function () {
 		Habitrac.Storage.store();
 		try {
@@ -45,7 +44,18 @@
 				}) + html;
 			}
 		}
-		Util.getElementFromCache('#habit_list').html(html);
+		Util.getElementFromCache('#habit_list').html(html)
+	    // See: http://stackoverflow.com/a/4448972
+	    .find('span.habit_label').attr('unselectable', 'on');
+	   /*  .each(function () {
+			// See: http://stackoverflow.com/a/2310809
+			if (typeof this.onselectstart != 'undefined') {
+				this.onselectstart = function() { return false; };
+			}
+	    }); */
+		
+		// See: http://stackoverflow.com/a/11893084
+		Util.getElementFromCache('#habit_list_page').css('height', '100%');
 	};
 	
 	Habitrac.Logic.highlightList = function (_$li, _class) {
