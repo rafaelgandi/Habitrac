@@ -2,8 +2,8 @@ html {
 	/* See: http://stackoverflow.com/a/11823698 */
     -webkit-user-select: none;
 	user-select: none;
-	/* See: http://stackoverflow.com/a/11237968 */
-	-webkit-touch-callout:none;
+	/* See: http://stackoverflow.com/a/11237968
+	-webkit-touch-callout:none; */
 	-webkit-tap-highlight-color:rgba(0,0,0,0);
 }
 @font-face {
@@ -26,13 +26,20 @@ body {
 .mui_page {
 	/* background-image: url('../images/texture7.png'); */
 	/* See: http://sublimeorange.com/css/css3-inner-shadow/ */
-	/* See: http://www.red-team-design.com/how-to-create-slick-effects-with-css3-box-shadow */
+	/* See: http://www.red-team-design.com/how-to-create-slick-effects-with-css3-box-shadow
 	-webkit-box-shadow:inset 0 0 20px rgba(50, 50, 50, 0.6);
-	box-shadow:inset 0 0 20px rgba(50, 50, 50, 0.6);
+	box-shadow:inset 0 0 20px rgba(50, 50, 50, 0.6); */
 	/* See: http://www.html5rocks.com/en/mobile/optimization-and-performance/ */
 	/* See: http://mobile.smashingmagazine.com/2012/06/21/play-with-hardware-accelerated-css/ */
-	/* -webkit-transform: translate3d(0, 0, 0);
-	transform: translate3d(0, 0, 0); */
+	-webkit-transform: translate3d(0, 0, 0);
+	/* transform: translate3d(0, 0, 0); */
+	-webkit-overflow-scrolling: touch;
+	/* See: http://stackoverflow.com/a/10133679 */
+	-webkit-backface-visibility: hidden;
+	-webkit-perspective: 1000;
+	/* See: http://stackoverflow.com/questions/10014461/why-does-enabling-hardware-acceleration-in-css3-slow-down-performance */
+	transform: translateZ(0);
+	-webkit-transform: translateZ(0);
 }
 .mui_page button {
 	text-shadow: 0 -1px 0 #4c9021;
@@ -92,13 +99,12 @@ button img {
 	border-bottom: 1px solid #82B221;
 	padding-bottom: 5px;
 	padding-left: 5px;
-	/* See: http://stackoverflow.com/a/5522742
-	-webkit-user-modify: read-write-plaintext-only; */
 }
-textarea:focus, input:focus {
-	/* See: http://stackoverflow.com/a/13255856
-    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);    
-    -webkit-user-modify: read-write-plaintext-only; */
+
+input:focus {
+	border-top: 0;
+	border-left: 0;
+	border-right: 0;
 }
 #add_habit_button,
 #save_edit_habit_button,
@@ -131,6 +137,7 @@ button.header_b_hlight {
 #habit_list li {
 	-webkit-transition: background-color 0.40s linear 0s;
 	transition: background-color 0.40s linear 0s;
+	margin-bottom: 4px;
 }
 
 #habitrac_menu_popup_con {
@@ -182,12 +189,23 @@ span.habit_label {
 	display:block;
 	padding:10px;
 	text-align: center;
+	position: relative;
+	overflow:hidden;
 	/* See: http://stackoverflow.com/a/11823698 */
     -webkit-user-select: none;
-	user-select: none;
+	user-select: none; 
 	/* See: http://stackoverflow.com/a/11237968 */
 	-webkit-touch-callout:none;
 	-webkit-tap-highlight-color: transparent;
+}
+.habit_label_cover {
+	position: absolute;
+	top:0;
+	left:0;
+	z-index:2;
+	margin:0 !important;
+	background-color: transparent;
+	opacity: 0;
 }
 
 #notification {
@@ -277,7 +295,7 @@ input.chart_date {
 	color: #E33331;
 }
 #app_menu_list li {
-	border: 1px solid #ccc;
+	border-bottom: 1px solid #ccc !important;
 }
 #app_menu_list button {
 	text-align: left;
@@ -324,7 +342,9 @@ input.chart_date {
 	font-size: 11px;
 	color: #ccc;
 }
-
+.show_popup_menu {
+	background-color: #53C1E9 !important;
+}
 
 
 

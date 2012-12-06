@@ -36,7 +36,7 @@
 		// See: http://docs.mobiscroll.com/
 		$dateField.scroller({
 			theme: 'android-ics light',
-			//mode: 'scroller',
+			//mode: 'scroller', // Scroller acts wierd on android 4.0.4
 			mode: 'clickpick',
 			preset: 'date',
 			display: 'modal',
@@ -44,6 +44,12 @@
 			// See: http://code.google.com/p/mobiscroll/issues/detail?id=96
 			onShow: function (html, inst) {
 				$header.css('position', 'absolute');
+				setTimeout(function () {
+					z('div.android-ics').eq(0).css({
+						'top': '20px',
+						'visibility': 'visible'
+					});
+				}, 30);				
 			},
 			onClose: function (html, inst) {
 				$header.css('position', 'fixed');

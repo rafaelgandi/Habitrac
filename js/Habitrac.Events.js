@@ -6,13 +6,13 @@
 		buttonHighLight: function (e) {
 			var $me = z(this),
 				tapcolorclass = trim($me.attr('data-hlightclass')),
-				etype = e.type.toLowerCase();
+				etype = e.type.toLowerCase();			
 			if (etype === 'touchstart') {
 				$me.addClass(tapcolorclass);	
 			}
 			else {
 				$me.removeClass(tapcolorclass);	
-			}			
+			}
 		},
 		gotoAddHabitPage: function () {
 			Mui.gotoPage('new_habit_page');
@@ -40,13 +40,14 @@
 						Habitrac.Logic.highlightList($me.parents('li'), $me.attr('data-hlightclass'));	
 					}
 				},
-				title: 'Habit Checkin',
+				title: 'Habit Log',
 				buttons: 'Nope,Yep'
 			});							
 		},
-		showHabitListMenu: function () {
+		showHabitListMenu: function () {		
 			var $me = z(this),
 				habitId = trim($me.attr('data-habitid'));
+			Habitrac.Logic.highlightList($me.parents('li'), 'show_popup_menu');	
 			Habitrac.Logic.showHabitListMenu(habitId);	
 		},
 		phoneBackButton: function () {			
@@ -196,33 +197,24 @@
 		}
 	};
 	
-	/* 
-		/!\ Stopped using 'tap' events because of issues with android 4.0.4(https://github.com/madrobby/zepto/issues/519)
-		Started using 'onpress' zepto plugin for better tap support. 
-		See: http://maxdegterev.name/javascript-2/fast-buttons-for-webapps/
-		See: https://github.com/suprMax/Zepto-onPress
-		See: https://developers.google.com/mobile/articles/fast_buttons
-		LM: 12-03-12
-	*/
-	var $origin = z('section.mui_page, #mui_header, #habitrac_menu_popup_con');	
 	$root.on('touchstart touchmove touchend', 'button[data-hlightclass]',  Habitrac.Events.buttonHighLight); // Button highlighting		
-	$origin.onpress('button.exit', Habitrac.Events.exit); // Exit //
-	$origin.onpress('#back2list', Habitrac.Events.gotoHabitListPage);
-	$origin.onpress('#add_habit_h_button', Habitrac.Events.gotoAddHabitPage);
-	$origin.onpress('#add_habit_button', Habitrac.Events.addNewHabit);
-	$origin.onpress('button.didit_button, button.failed_button', Habitrac.Events.pressedHabitLogButton);
-	$origin.onpress('#save_edit_habit_button', Habitrac.Events.editNewHabit);	
+	$root.on('click', 'button.exit', Habitrac.Events.exit); // Exit //
+	$root.on('touchstart', '#back2list', Habitrac.Events.gotoHabitListPage);
+	$root.on('touchstart', '#add_habit_h_button', Habitrac.Events.gotoAddHabitPage);
+	$root.on('click', '#add_habit_button', Habitrac.Events.addNewHabit);
+	$root.on('click', 'button.didit_button, button.failed_button', Habitrac.Events.pressedHabitLogButton);
+	$root.on('click', '#save_edit_habit_button', Habitrac.Events.editNewHabit);	
 	$root.on('longTap', 'span.habit_label', Habitrac.Events.showHabitListMenu);
 	$root.on('touchstart', Habitrac.Events.habitContextMenuBlur);
 	$root.on('blur', 'input[type="text"]', Habitrac.Events.inputTextBlur);	
-	$origin.onpress('#calculate_pie_chart_button', Habitrac.Events.calculateHabitPieChartButtonPressed);
-	$origin.onpress('#goto_about_page_button', Habitrac.Events.gotoAboutPageButtonPressed);	
+	$root.on('click', '#calculate_pie_chart_button', Habitrac.Events.calculateHabitPieChartButtonPressed);
+	$root.on('click', '#goto_about_page_button', Habitrac.Events.gotoAboutPageButtonPressed);	
 	$root.on('selectstart dragstart', 'span.habit_label', Habitrac.Events.pereventSelection);	
 	$root.on('focus', '#habit_input,#edit_habit_input', Habitrac.Events.pereventBorderOnTextField);	
 	// Habit list context menu events //	
-	$origin.onpress('#delete_habit_button', Habitrac.Events.deleteHabitMenuClicked);
-	$origin.onpress('#edit_habit_button', Habitrac.Events.editHabitMenuClicked);
-	$origin.onpress('#habit_chart_menu_button', Habitrac.Events.chartMenuClicked);
+	$root.on('click', '#delete_habit_button', Habitrac.Events.deleteHabitMenuClicked);
+	$root.on('click', '#edit_habit_button', Habitrac.Events.editHabitMenuClicked);
+	$root.on('click', '#habit_chart_menu_button', Habitrac.Events.chartMenuClicked);
 	//Phonegap events//
 	document.addEventListener('backbutton', Habitrac.Events.phoneBackButton, false);		
 	document.addEventListener('menubutton', Habitrac.Events.phoneMenuButton, false);		

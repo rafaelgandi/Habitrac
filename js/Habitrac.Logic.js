@@ -36,6 +36,7 @@
 	Habitrac.Logic.buildHabitList = function () {
 		var html = '',
 			tpl = document.getElementById('habit_list_tpl').innerHTML;
+		Util.getElementFromCache('#habit_list').html('');	
 		for (var habit in Habitrac.Globals.habits) {
 			if (Habitrac.Globals.habits.hasOwnProperty(habit)) {
 				html = Habitrac.Builder.replace(tpl, {
@@ -46,13 +47,18 @@
 		}
 		Util.getElementFromCache('#habit_list').html(html)
 	    // See: http://stackoverflow.com/a/4448972
-	    .find('span.habit_label').attr('unselectable', 'on');
-	   /*  .each(function () {
+	    .find('span.habit_label').attr('unselectable', 'on')
+	   .each(function () {
 			// See: http://stackoverflow.com/a/2310809
 			if (typeof this.onselectstart != 'undefined') {
 				this.onselectstart = function() { return false; };
 			}
-	    }); */
+			var $me = z(this),
+				width = $me.width();
+			$me.append('<div class="habit_label_cover">&nbsp;<div>')
+			   .find('div.habit_label_cover')
+			   .css('width', width+'px');
+	    });
 		
 		// See: http://stackoverflow.com/a/11893084
 		Util.getElementFromCache('#habit_list_page').css('height', '100%');

@@ -3,7 +3,7 @@
 		- This is my personal mobile ui framework template. Very basic!
 		- This is primarily built for my Android 2.3.6 LG Optimus E400 L3 phone.
 		- Dependent on Zepto.js
-	LM: 12-03-12	
+	LM: 12-04-12	
  */
 Zepto(function () {
 	window.Mui = (function (self, document, z, undefined) {
@@ -120,29 +120,33 @@ Zepto(function () {
 					$muipages.removeClass('mui_active_page');				
 					var onComplete = function () {
 						// Make sure to run only once every Mui.gotoPage() call.				
-						if (ran) { return; } ran=true;
-						$page.addClass('mui_active_page');
-						Mui.buildHeaderMarkupForPageId(pageId);
+						if (ran) { return; } ran=true;						
+						$page.addClass('mui_active_page');						
+						Mui.buildHeaderMarkupForPageId(pageId);											
 						$root.trigger('mui_afterpagechange', [$page]);
-						$otherPages.hide();
+						$otherPages.hide();						
 					};
 					// The code below controls the page slide left/right functionality //	
-					if (prevPageIndex <= newPageIndex) {						
-						$page.animate({
-							//'transform': 'translate3d(0px, 0, 0)',
+					if (prevPageIndex <= newPageIndex) {					
+						$page.animate({						
 							'left':'0px'
 						}, {
 							complete: onComplete,
-							easing: 'ease',
-							duration: 200
-						}); // right to left 			
+							duration: 300
+							// Removed easing here because it tends to bogdown the  animation
+							// on android 4.0.4... wierdness
+							// easing: 'ease'
+							// LM: 12-04-12	
+						}); // right to left					
+						
 					}
 					else {	
 						$page.css('left', '0px');
-						getPagesGreaterThanIndex(newPageIndex).animate({
-							//'transform': 'translate3d(700px, 0, 0)',
-							'left':'700px'
-						}, {complete: onComplete}); // left to right	
+						getPagesGreaterThanIndex(newPageIndex).animate({							
+							// If you change this you also need to change the 
+							// .mui_page selector in the Mui.css file.
+							'left':'800px' 
+						}, {complete: onComplete}); // left to right											
 					}																	
 					$root.trigger('mui_beforepagechange', [Mui.$CURRENT_PAGE]);	
 					Mui.$CURRENT_PAGE = $page;
