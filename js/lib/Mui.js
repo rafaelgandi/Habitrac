@@ -3,7 +3,7 @@
 		- This is my personal mobile ui framework template. Very basic!
 		- This is primarily built for my Android 2.3.6 LG Optimus E400 L3 phone.
 		- Dependent on Zepto.js
-	LM: 12-04-12	
+	LM: 12-06-12	
  */
 Zepto(function () {
 	window.Mui = (function (self, document, z, undefined) {
@@ -121,8 +121,7 @@ Zepto(function () {
 					var onComplete = function () {
 						// Make sure to run only once every Mui.gotoPage() call.				
 						if (ran) { return; } ran=true;						
-						$page.addClass('mui_active_page');						
-						Mui.buildHeaderMarkupForPageId(pageId);											
+						$page.addClass('mui_active_page').show();														
 						$root.trigger('mui_afterpagechange', [$page]);
 						$otherPages.hide();						
 					};
@@ -147,7 +146,8 @@ Zepto(function () {
 							// .mui_page selector in the Mui.css file.
 							'left':'800px' 
 						}, {complete: onComplete}); // left to right											
-					}																	
+					}
+					Mui.buildHeaderMarkupForPageId(pageId);				
 					$root.trigger('mui_beforepagechange', [Mui.$CURRENT_PAGE]);	
 					Mui.$CURRENT_PAGE = $page;
 					$root.trigger('mui_pagechange', [$page, _data]);

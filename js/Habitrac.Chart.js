@@ -49,6 +49,7 @@
 						'top': '20px',
 						'visibility': 'visible'
 					});
+					z('div.dwbg').trigger('tochstart').css('-webkit-transform','scale(1)');
 				}, 30);				
 			},
 			onClose: function (html, inst) {
