@@ -43,6 +43,8 @@ body {
 	/* See: http://stackoverflow.com/questions/10014461/why-does-enabling-hardware-acceleration-in-css3-slow-down-performance */
 	transform: translateZ(0);
 	-webkit-transform: translateZ(0);
+	
+	padding-bottom: 30px;
 }
 .mui_page button {
 	text-shadow: 0 -1px 0 #4c9021;
@@ -60,6 +62,9 @@ button img {
 }
 .mui_listview li sub {
 	color: #ccc;
+}
+#habit_list li {
+	margin-top: 5px;
 }
 #habit_list div {
 	padding:0;
@@ -244,9 +249,7 @@ span.habit_label {
 	margin:0 auto;
 	overflow: hidden;
 	padding:0;
-	border: 1px solid #ccc;
-	background-color: #fff;
-	border-radius: 10px;
+	background-color: #fff;	
 }
 #pie_con h2 {
 	font-size: 14px;
@@ -273,6 +276,7 @@ input.chart_date {
 	border: 0;
 	color: #666;
 	border-bottom: 1px solid #80C801;
+	margin-bottom: 5px;
 }
 #chart_date_from {
 	margin-right: 5px;
@@ -351,13 +355,53 @@ input.chart_date {
 	background-color: #53C1E9 !important;
 }
 
+div.habit_list_label_con {
+	padding-left: 90px !important;
+	position: relative;	
+	height: 100px;
+}
 
+div.habit_quick_bar_con {
+	position: absolute;
+	left: 5px;
+	top: 5px;
+	width: 80px;
+	height: 80px;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	padding: 8px !important;
+	text-align: center;
+	background-color: #F7F8F8;
+}
+div.bar_holder {
+	position: relative;
+	height: 100%;
+	border-bottom: 1px solid #ccc;
+}
+div.bar_holder div {
+	width: 25px;
+	padding: 0 !important;
+	border-radius: 3px;
+	position: absolute;
+	bottom: 0;
+}
+div.bar_fail {
+	background-color: #E33331;
+	left:4px;	
+}
+div.bar_didit {
+	background-color: #82B221;
+	right:4px;
+}
 
-
-
-
-
-
+#init_loading {
+	font-style: italic;
+	color: #ccc;
+	text-align: center;
+	margin: 0 auto;
+	margin-top: 30px;
+	font-weight: normal;
+}
 
 
 

@@ -29,21 +29,35 @@
 			Habitrac.Logic.saveNewHabit(habit);
 			Mui.gotoPage('habit_list_page');
 		},		
-		pressedHabitLogButton: function () {
-			var $me = z(this),
-				habitId = trim($me.attr('data-habitid'));
-			Util.confirm({
-				message: 'Check a log for this habit?',
-				callback: function (button) {
-					if (button === 2 || button === true) {
-						Habitrac.Logic.logUserHabitAction(habitId, ($me.hasClass('didit_button')) ? 'didit' : 'failed');	
-						Habitrac.Logic.highlightList($me.parents('li'), $me.attr('data-hlightclass'));	
-					}
-				},
-				title: 'Habit Log',
-				buttons: 'Nope,Yep'
-			});							
-		},
+		pressedHabitLogButton: (function () {
+			var timer,
+				barCons = {};
+			return function () {
+				var $me = z(this),
+					habitId = trim($me.attr('data-habitid'));
+				Util.confirm({
+					message: 'Check a log for this habit?',
+					callback: function (button) {
+						if (button === 2 || button === true) {
+							Habitrac.Logic.logUserHabitAction(habitId, ($me.hasClass('didit_button')) ? 'didit' : 'failed');	
+							Habitrac.Logic.highlightList($me.parents('li'), $me.attr('data-hlightclass'));
+							clearTimeout(timer);
+							// Update the bar graph here //
+							timer = setTimeout(function () {
+								var bar = Habitrac.Chart.getQuickBarGraphData(habitId),
+									$barCon = (barCons[habitId] === undefined)
+														? $me.parent().parent().find('div.habit_quick_bar_con')
+														: barCons[habitId];
+									$barCon.find('div.bar_fail').css('height', bar.fail+'px');
+									$barCon.find('div.bar_didit').css('height', bar.didit+'px');							
+							}, 1e3);	
+						}
+					},
+					title: 'Habit Log',
+					buttons: 'Nope,Yep'
+				});							
+			};		
+		})(),
 		showHabitListMenu: function () {		
 			var $me = z(this),
 				habitId = trim($me.attr('data-habitid'));
@@ -155,6 +169,8 @@
 			return false;
 		},
 		pereventBorderOnTextField: function () {
+			// Does not work on android 4.0.4
+			// as of 12-09-2012
 			z(this).css({
 				'border-top': '0px',
 				'border-left': '0px',
@@ -173,14 +189,13 @@
 				Util.getElementFromCache('#save_edit_habit_button').data('habitid', data.habitId);
 				Habitrac.Logic.hideHabitListMenu();
 			},
-			chart_page: function (e, $page, habitId) {			
-				if (Habitrac.Chart !== undefined) { runChart(); }
+			chart_page: function (e, $page, habitId) {
+				// Check if mobiscroll already is loaded //
+				if (z.fn.scroller !== undefined) { runChart(); }
 				else {
-					loadScript('js/lib/mobiscroll-2.1.custom.min.js', function () {
-						loadScript('js/Habitrac.Chart.js', function () {
-							Habitrac.Chart.setUpMobiscroll();
-							runChart();
-						});
+					loadScript('js/lib/mobiscroll-2.1.custom.min.js', function () {						
+						Habitrac.Chart.setUpMobiscroll();
+						runChart();			
 					});				
 				}				
 				function runChart() {
@@ -199,12 +214,12 @@
 	
 	$root.on('touchstart touchmove touchend', 'button[data-hlightclass]',  Habitrac.Events.buttonHighLight); // Button highlighting		
 	$root.on('click', 'button.exit', Habitrac.Events.exit); // Exit //
-	$root.on('touchstart', '#back2list', Habitrac.Events.gotoHabitListPage);
-	$root.on('touchstart', '#add_habit_h_button', Habitrac.Events.gotoAddHabitPage);
+	$root.on('click', '#back2list', Habitrac.Events.gotoHabitListPage);
+	$root.on('click', '#add_habit_h_button', Habitrac.Events.gotoAddHabitPage);
 	$root.on('click', '#add_habit_button', Habitrac.Events.addNewHabit);
 	$root.on('click', 'button.didit_button, button.failed_button', Habitrac.Events.pressedHabitLogButton);
 	$root.on('click', '#save_edit_habit_button', Habitrac.Events.editNewHabit);	
-	$root.on('longTap', 'span.habit_label', Habitrac.Events.showHabitListMenu);
+	$root.on('longTap', 'span.habit_label, div.habit_quick_bar_con', Habitrac.Events.showHabitListMenu);
 	$root.on('touchstart', Habitrac.Events.habitContextMenuBlur);
 	$root.on('blur', 'input[type="text"]', Habitrac.Events.inputTextBlur);	
 	$root.on('click', '#calculate_pie_chart_button', Habitrac.Events.calculateHabitPieChartButtonPressed);

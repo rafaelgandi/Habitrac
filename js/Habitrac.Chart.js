@@ -49,7 +49,9 @@
 						'top': '20px',
 						'visibility': 'visible'
 					});
-					z('div.dwbg').trigger('tochstart').css('-webkit-transform','scale(1)');
+					z('div.dwbg').trigger('tochstart').css({
+						'-webkit-transform': 'scale(1)'
+					});
 				}, 30);				
 			},
 			onClose: function (html, inst) {
@@ -155,6 +157,24 @@
 		Habitrac.Chart.writeCountLabels(chartData.didit, chartData.fail);
 		Habitrac.Chart.calculateHabitAgeInDays(_habitId);
 		Habitrac.Chart.pie('habit_pie', 100, [fail, didit], [Math.round(fail)+'%', Math.round(didit)+'%'], ['E33331', '85C708']);
+	};
+	
+	Habitrac.Chart.getQuickBarGraphData = function (_habitId, _percentLimit) {
+		var datesArr = Habitrac.Chart.collectHabitTimes(_habitId, '', ''),
+			barData = Habitrac.Chart.extractData(datesArr),
+			didit = 0,
+			fail = 0;
+		_percentLimit = parseInt(_percentLimit, 10) || 60;	
+		if (! barData) {
+			return { didit: 0, fail: 0 };
+		}
+		// Calculate percentage here //
+		didit = (barData.didit / barData.total) * _percentLimit;	
+		fail = (barData.fail / barData.total) * _percentLimit;
+		return { 
+			didit: didit, 
+			fail: fail
+		};
 	};
 	
 })(self, Zepto, self.Habitrac, self.localStorage);

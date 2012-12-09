@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- LM: 11-20-12 -->
+<!-- LM: 12-09-12 -->
 <html lang="en">
 <head>
 	<meta charset="utf-8">
@@ -17,12 +17,13 @@
 </header>
 
 <section id="habit_list_page" class="mui_page mui_active_page">
+	<h3 id="init_loading">Thinking...</h3>
 	<ul id="habit_list" class="mui_listview"></ul>
 </section>
 <section id="new_habit_page" class="mui_page"></section>
 <section id="edit_habit_page" class="mui_page"></section>
 <section id="chart_page" class="mui_page">
-	<div id="pie_con" class="glow"></div>	
+	<div id="pie_con"></div>	
 </section>
 <section id="menu_page" class="mui_page">
 	<ul id="app_menu_list" class="mui_listview"></ul>
@@ -51,12 +52,12 @@ document.addEventListener('deviceready', function () {
 				Habitrac.Builder.buildPages();
 			});			
 			loadScript('js/Habitrac.Logic.js', function () {
-				runwhen('Habitrac.Builder', function () {
+				loadScript('js/Habitrac.Chart.js');
+				runwhen(['Habitrac.Builder', 'Habitrac.Chart'], function () {
+					z('#init_loading').remove();
 					Habitrac.Logic.buildHabitList();					
-				});
-				//loadScript('js/lib/zepto.onpress.js', function () {
-					loadScript('js/Habitrac.Events.js');
-				//});				
+				});				
+				loadScript('js/Habitrac.Events.js');			
 			});			
 		});
 	});
@@ -64,8 +65,16 @@ document.addEventListener('deviceready', function () {
 </script>
 
 <script type="text/html" id="habit_list_tpl">
-	<li data-habitid="{habit_id}"> 
-		<span class="habit_label" data-habitid="{habit_id}">{habit}</span>
+	<li data-habitid="{habit_id}">
+		<div class="habit_list_label_con">
+			<div class="habit_quick_bar_con glow" data-habitid="{habit_id}">
+				<div class="bar_holder">
+					<div class="bar_fail" style="height:{fail_bar}px;">&nbsp;</div>
+					<div class="bar_didit" style="height:{didit_bar}px;">&nbsp;</div>
+				</div>
+			</div>
+			<span class="habit_label" data-habitid="{habit_id}">{habit}</span>	
+		</div>		
 		<div>
 			<button data-habitid="{habit_id}" class="failed_button" data-hlightclass="fail_press">Failed</button>
 			<button data-habitid="{habit_id}" class="didit_button" data-hlightclass="didit_press">Did It!</button>				

@@ -1,4 +1,4 @@
-function isMobile() {
+function isMobileAndroid() {
 	// This function only takes into consideration andorid devices.
 	// See: http://www.abeautifulsite.net/blog/2011/11/detecting-mobile-devices-with-javascript/
 	return !! navigator.userAgent.toLowerCase().match(/android/i);
@@ -12,10 +12,10 @@ function loadScript(url, callback){
 		callback();
 	};
 	// Don't use  querystring cache busters as it will cause issues 
-	// in android 4.0+ Use it only on the browser, hence the isMobile()
+	// in android 4.0+ Use it only on the browser, hence the isMobileAndroid()
 	// checker function.
 	// See: http://code.google.com/p/android/issues/detail?id=17535
-    script.src = url + ((! isMobile()) ? '?'+(new Date()).getTime() : '');
+    script.src = url + ((! isMobileAndroid()) ? '?'+(new Date()).getTime() : '');
     document.body.appendChild(script);
 }
 

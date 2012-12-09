@@ -35,13 +35,17 @@
 	
 	Habitrac.Logic.buildHabitList = function () {
 		var html = '',
-			tpl = document.getElementById('habit_list_tpl').innerHTML;
+			tpl = document.getElementById('habit_list_tpl').innerHTML,
+			bar;
 		Util.getElementFromCache('#habit_list').html('');	
 		for (var habit in Habitrac.Globals.habits) {
 			if (Habitrac.Globals.habits.hasOwnProperty(habit)) {
+				bar = Habitrac.Chart.getQuickBarGraphData(habit);
 				html = Habitrac.Builder.replace(tpl, {
 					'habit': Habitrac.Globals.habits[habit],
-					'habit_id': habit
+					'habit_id': habit,
+					'fail_bar': bar.fail,
+					'didit_bar': bar.didit
 				}) + html;
 			}
 		}
