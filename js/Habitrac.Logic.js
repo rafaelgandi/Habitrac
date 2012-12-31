@@ -66,6 +66,7 @@
 		
 		// See: http://stackoverflow.com/a/11893084
 		Util.getElementFromCache('#habit_list_page').css('height', '100%');
+		
 	};
 	
 	Habitrac.Logic.highlightList = function (_$li, _class) {
@@ -133,6 +134,32 @@
 		_habitId = trim(_habitId);
 		Mui.gotoPage('chart_page', _habitId);
 	};
+	
+	Habitrac.Logic.deviceDiagnostics = function () {
+		// Device diagnostics //
+		try {
+			Habitrac.Log.report('--------------------------------------------');
+			Habitrac.Log.report(navigator.userAgent);
+			Habitrac.Log.report('SCREEN WIDTH: '+screen.width);
+			Habitrac.Log.report('SCREEN HEIGHT: '+screen.height);
+			Habitrac.Log.report('availwidth: '+screen.availWidth);
+			Habitrac.Log.report('availheight: '+screen.availHeight);
+			Habitrac.Log.report('colorDepth: '+screen.colorDepth);
+			Habitrac.Log.report('window.console: ' + (typeof self.console));
+			
+			// phonegap stuff //
+			Habitrac.Log.report('device name: '+device.name);
+			Habitrac.Log.report('phonegap version: '+device.phonegap);
+			Habitrac.Log.report('platform: '+device.platform);
+			Habitrac.Log.report('os version: '+device.version);
+			Habitrac.Log.report('uuid: '+device.uuid);			
+			Habitrac.Log.report('---------- DEVICE DIAGNOSTICS ---------');
+		}
+		catch (err) {
+			Habitrac.Log.report('Unable to get screen.width');
+		}		
+	};
 
 	
 })(self, Zepto, self.Habitrac, self.localStorage);
+Habitrac.Log.report('Habitrac.Logic.js loaded');

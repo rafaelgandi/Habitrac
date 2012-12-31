@@ -36,7 +36,7 @@
 				var $me = z(this),
 					habitId = trim($me.attr('data-habitid'));
 				Util.confirm({
-					message: 'Check a log for this habit?',
+					message: 'Continue with log?',
 					callback: function (button) {
 						if (button === 2 || button === true) {
 							Habitrac.Logic.logUserHabitAction(habitId, ($me.hasClass('didit_button')) ? 'didit' : 'failed');	
@@ -44,6 +44,7 @@
 							clearTimeout(timer);
 							// Update the bar graph here //
 							timer = setTimeout(function () {
+								Habitrac.Log.report('Quick bargraph being made.');
 								var bar = Habitrac.Chart.getQuickBarGraphData(habitId),
 									$barCon = (barCons[habitId] === undefined)
 														? $me.parent().parent().find('div.habit_quick_bar_con')
@@ -64,7 +65,13 @@
 			Habitrac.Logic.highlightList($me.parents('li'), 'show_popup_menu');	
 			Habitrac.Logic.showHabitListMenu(habitId);	
 		},
-		phoneBackButton: function () {			
+		phoneBackButton: function () {
+			// For some reason when text field is in focus and you press
+			// the phones back button, the app automatically exits. Trying
+			// to blur the any text field first here. Not sure if this will
+			// work.
+			// LM: 12-31-12
+			z('input[type=text]').blur();
 			var currPageId = Mui.$CURRENT_PAGE.attr('id');
 			if (currPageId === 'habit_list_page') {
 				// Check if the habit context menu is hdden, if it is then the user(me)
@@ -93,6 +100,14 @@
 		},
 		phoneMenuButton: function () {			
 			Habitrac.Logic.hideHabitListMenu();
+			
+			// Load file module if not yet loaded. //
+			if (! Habitrac.File) {
+				loadScript('js/Habitrac.File.js', function () {
+					Habitrac.Log.report('File module loaded');
+				});		
+			}
+						
 			if (Mui.$CURRENT_PAGE.attr('id') !== 'menu_page') {
 				Mui.gotoPage('menu_page');
 			}
@@ -177,12 +192,68 @@
 				'border-right': '0px'
 			});
 		},
+		gotoLogsPage: function (e) {
+			Mui.gotoPage('logs_page');
+		},
+		makeFileBackup: function (e) {
+			if (! Habitrac.File) {
+				alert('Please try again');
+				return;
+			}
+			Util.confirm({
+				message: 'Continue with backup?',
+				callback: function (button) {
+					if (button === 2 || button === true) {
+						try {
+							var data = {
+								date: (new Date()).toString(),
+								habits: Habitrac.Globals.habits,
+								habitTimes: Habitrac.Globals.habitTimes
+							};
+							Habitrac.File.writeBackUp(JSON.stringify(data), function () {
+								Habitrac.Log.report('Backup made!!!');
+								Habitrac.Logic.notify('Backup made!!!');
+							});
+						}
+						catch (e) {
+							Habitrac.Log.report('Error on file backup, try again');
+						}	
+					}
+				},
+				title: 'Backup',
+				buttons: 'Nope,Backup'
+			});	
+		},
+		restoreFromFileBackup: function (e) {
+			if (! Habitrac.File) {
+				alert('Please try again');
+				return;
+			}
+			Util.confirm({
+				message: 'Continue with restore?',
+				callback: function (button) {
+					if (button === 2 || button === true) {
+						Habitrac.File.readBackUp(function (res) {
+							if (Habitrac.Storage.import(res)) {
+								Mui.gotoPage('habit_list_page');
+								Habitrac.Logic.notify('Finished restoring data.');
+							}
+							else {
+								alert('Sorry, unable to restore data.');
+							}
+						});	
+					}
+				},
+				title: 'Restore',
+				buttons: 'Nope,Restore'
+			});	
+		},
 		pageEvents: {
 			new_habit_page: function () {
 				Util.getElementFromCache('#habit_input').val('').focus();
 			},
 			habit_list_page: function () {
-				Habitrac.Logic.buildHabitList();
+				Habitrac.Logic.buildHabitList();		
 			},
 			edit_habit_page: function (e, $page, data) {
 				Util.getElementFromCache('#edit_habit_input').val(data.habit).focus();
@@ -195,6 +266,7 @@
 				else {
 					loadScript('js/lib/mobiscroll-2.1.custom.min.js', function () {						
 						Habitrac.Chart.setUpMobiscroll();
+						Habitrac.Log.report('Setting up mobiscroll..');
 						runChart();			
 					});				
 				}				
@@ -208,7 +280,10 @@
 					Util.getElementFromCache('#pie_chart_h2').text(Habitrac.Globals.habits[habitId]);
 				}
 				
-			}
+			},
+			afterPageChange: function (e, _$page) {
+				//NOT USED AS OF 12-31-2012
+			}		
 		}
 	};
 	
@@ -226,6 +301,9 @@
 	$root.on('click', '#goto_about_page_button', Habitrac.Events.gotoAboutPageButtonPressed);	
 	$root.on('selectstart dragstart', 'span.habit_label', Habitrac.Events.pereventSelection);	
 	$root.on('focus', '#habit_input,#edit_habit_input', Habitrac.Events.pereventBorderOnTextField);	
+	$root.on('click', '#goto_logs_page_button', Habitrac.Events.gotoLogsPage);	
+	$root.on('click', '#make_file_backup_button', Habitrac.Events.makeFileBackup);	
+	$root.on('click', '#restore_from_backup_file_button', Habitrac.Events.restoreFromFileBackup);	
 	// Habit list context menu events //	
 	$root.on('click', '#delete_habit_button', Habitrac.Events.deleteHabitMenuClicked);
 	$root.on('click', '#edit_habit_button', Habitrac.Events.editHabitMenuClicked);
@@ -238,6 +316,8 @@
 	$root.on('habit_list_page', Habitrac.Events.pageEvents.habit_list_page);
 	$root.on('edit_habit_page', Habitrac.Events.pageEvents.edit_habit_page);
 	$root.on('chart_page', Habitrac.Events.pageEvents.chart_page);
+	$root.on('mui_afterpagechange', Habitrac.Events.pageEvents.afterPageChange);
 	
 	
 })(self, Zepto, self.Habitrac, self.localStorage);
+Habitrac.Log.report('Habitrac.Events.js loaded');

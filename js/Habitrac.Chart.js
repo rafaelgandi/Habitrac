@@ -178,3 +178,4 @@
 	};
 	
 })(self, Zepto, self.Habitrac, self.localStorage);
+Habitrac.Log.report('Habitrac.Chart.js loaded');

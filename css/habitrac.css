@@ -172,7 +172,7 @@ button.header_b_hlight {
 }
 #habitrac_menu_popup_con li:last-child,
 #app_menu_list li:last-child {
-	border:0;
+	border:0 !important;
 }
 #habitrac_menu_popup_con button,
 #app_menu_list button {
@@ -311,6 +311,7 @@ input.chart_date {
 }
 #app_menu_list button sub {
 	text-shadow: 0 -0 0 #fff;
+	padding-top: 6px;
 }
 .app_menu_pressed {
 	background-color: #8FB737 !important;
@@ -403,7 +404,17 @@ div.bar_didit {
 	font-weight: normal;
 }
 
-
+/* LM: 12-28-12 */
+#log_con {
+	width: 100%;
+	min-height: 360px;
+	height:100%;
+	background: url("../images/logs_bg.gif") no-repeat right 20px fixed #000;
+	color: #fff;
+	padding: 5px;
+	font-size: 12px;
+	font-family: sans-serif;
+}
 
 
 

@@ -10,8 +10,9 @@
 	Habitrac.Builder.get = function (_path, _callback) {
 		_callback = _callback || function (res) {};
 		// See: http://osdir.com/ml/phonegap/2012-10/msg00885.html
-		var req = new XMLHttpRequest();
-		req.open("GET", _path, true);
+		var req = new XMLHttpRequest(),
+			path = _path + ((! isMobileAndroid()) ? '?'+(new Date()).getTime() : '');
+		req.open("GET", path, true);
 		req.onreadystatechange = function () {
 		  if (req.readyState == 4) {
 			if (req.status == 200 || req.status == 0) {
@@ -65,3 +66,4 @@
 	
 	
 })(self, Zepto, self.Habitrac, self.localStorage);
+Habitrac.Log.report('Habitrac.Builder.js loaded');

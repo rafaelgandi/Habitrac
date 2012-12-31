@@ -61,8 +61,8 @@ Zepto(function () {
 		var initEvents = function () {
 			var Events = {
 				rememberScrollPosition: function (e, _$page) {
-					pageScrollPosition[_$page[0].id] = window.scrollY;
-					self.scrollTo(0, 0);
+					pageScrollPosition[_$page[0].id] = self.scrollY;
+					self.scrollTo(0, 0);	
 				}
 			};			
 			$root.on('mui_beforepagechange', Events.rememberScrollPosition);
@@ -77,7 +77,7 @@ Zepto(function () {
 				if (!! p) {
 					return pageScrollPosition[p];
 				}
-				return pageScrollPosition;
+				return 0;
 			},
 			
 			buildHeaderMarkupForPageId: function (_pageId) {
@@ -117,14 +117,15 @@ Zepto(function () {
 					$page.data('sent', '');
 					if (!! _data) { $page.data('sent', _data); }				
 					$page.show();
-					$muipages.removeClass('mui_active_page');				
+					$muipages.removeClass('mui_active_page');
+					
 					var onComplete = function () {
 						// Make sure to run only once every Mui.gotoPage() call.				
 						if (ran) { return; } ran=true;						
 						$page.addClass('mui_active_page').show();														
 						$root.trigger('mui_afterpagechange', [$page]);
 						$otherPages.hide();						
-					};
+					};					
 					// The code below controls the page slide left/right functionality //	
 					if (prevPageIndex <= newPageIndex) {					
 						$page.animate({						
@@ -147,7 +148,7 @@ Zepto(function () {
 							'left':'800px' 
 						}, {complete: onComplete}); // left to right											
 					}
-					Mui.buildHeaderMarkupForPageId(pageId);				
+					Mui.buildHeaderMarkupForPageId(pageId);
 					$root.trigger('mui_beforepagechange', [Mui.$CURRENT_PAGE]);	
 					Mui.$CURRENT_PAGE = $page;
 					$root.trigger('mui_pagechange', [$page, _data]);

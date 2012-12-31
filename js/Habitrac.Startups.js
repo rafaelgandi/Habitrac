@@ -51,6 +51,11 @@ Zepto(function (z) {
 			'label': '<img src="images/logo.png">About',
 			'buttons': '<button id="back2list" data-hlightclass="header_b_hlight"><img src="images/back_button.png"></button>' +	
 					   '<button class="exit" data-hlightclass="header_b_hlight"><img src="images/x.png"></button>'			
+		},
+		'logs_page': {
+			'label': '<img src="images/logo.png">Logs',
+			'buttons': '<button id="back2list" data-hlightclass="header_b_hlight"><img src="images/back_button.png"></button>' +	
+					   '<button class="exit" data-hlightclass="header_b_hlight"><img src="images/x.png"></button>'			
 		}
 	})
 	.buildHeaderMarkupForPageId('habit_list_page');

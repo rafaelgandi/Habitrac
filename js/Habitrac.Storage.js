@@ -29,6 +29,7 @@
 	Habitrac.Storage.store = function () {
 		ls.setItem('habits', JSON.stringify(Habitrac.Globals.habits));
 		ls.setItem('habit_times',  JSON.stringify(Habitrac.Globals.habitTimes));
+		Habitrac.Log.report('All habits stored in local storage.');
 	};
 	
 	Habitrac.Storage.deleteHabit = function (_habitId) {
@@ -42,7 +43,33 @@
 		ls.clear();
 		ls.setItem('habits', '{}');
 		ls.setItem('habit_times', '{}');
+		Habitrac.Log.report('ALL LOCALSTORAGE DATA DELETED!');
+	};
+	
+	Habitrac.Storage.import = function (_data) {
+		// JSON parsing borrowed from Skycable app //
+		_data = trim(_data);
+		try { r = JSON.parse(_data); }
+		catch (e) { 
+			try {
+				eval('r='+_data+';');
+			}
+			catch(lastResort){
+				alert('Unable to import, invalid JSON found.');
+				Habitrac.Log.report('INVALID JSON FOUND ON IMPORT');
+				Habitrac.Log.report(lastResort.toString());
+				return false;
+			}						
+		}
+		Habitrac.Storage.clear();
+		Habitrac.Globals.habits = r.habits;
+		Habitrac.Globals.habitTimes = r.habitTimes;
+		Habitrac.Storage.store();
+		Habitrac.Log.report('Import from ' + r.date);
+		return true;
 	};
 	
 	
 })(self, Zepto, self.Habitrac, self.localStorage);
+
+Habitrac.Log.report('Storage script loaded');

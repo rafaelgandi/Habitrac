@@ -29,6 +29,9 @@
 	<ul id="app_menu_list" class="mui_listview"></ul>
 </section>
 <section id="about_page" class="mui_page"></section>
+<section id="logs_page" class="mui_page">
+	<pre id="log_con"></pre>
+</section>
 
 <section id="habitrac_menu_popup_con" class="glow trans hide">
 	<ul id="habitrac_menu_list" class="mui_listview"></ul>
@@ -39,28 +42,36 @@
 <script src="js/lib/Mui.js"></script>
 <script src="js/lib/runwhen.js"></script>
 <script src="js/Habitrac.Startups.js"></script>
+<script src="js/Habitrac.Log.js"></script>
 <script>
 var z = Zepto;	
 document.addEventListener('deviceready', function () {
-	loadScript('js/Habitrac.js');
+	loadScript('js/Habitrac.js');	
 	loadScript('js/lib/Util.js');
 	loadScript('js/Habitrac.Storage.js', function () {
+		Habitrac.Log.report('Util.js script loaded');
 		runwhen(['window.Habitrac', 'window.Util'], function () {			
 			loadScript('js/Habitrac.Builder.js');			
 			runwhen('Habitrac.Builder', function () {
 				// Start building the markup of some of the pages here //
 				Habitrac.Builder.buildPages();
+				Habitrac.Log.report('Building pages...');
 			});			
 			loadScript('js/Habitrac.Logic.js', function () {
 				loadScript('js/Habitrac.Chart.js');
 				runwhen(['Habitrac.Builder', 'Habitrac.Chart'], function () {
 					z('#init_loading').remove();
-					Habitrac.Logic.buildHabitList();					
+					Habitrac.Logic.buildHabitList();		
+					Habitrac.Log.report('Building habit list...');
 				});				
-				loadScript('js/Habitrac.Events.js');			
+				loadScript('js/Habitrac.Events.js');
+				Habitrac.Log.report('Initializing events...');		
 			});			
 		});
 	});
+	runwhen('Habitrac.Events', function () {
+		Habitrac.Logic.deviceDiagnostics();
+	});		
 }, true);
 </script>
 
