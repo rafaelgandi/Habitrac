@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-    <widget xmlns = "http://www.w3.org/ns/widgets"
-        xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.habitrac.android"
-        versionCode="1" 
-        version   = "1.0">
+<widget xmlns = "http://www.w3.org/ns/widgets"
+	xmlns:gap = "http://phonegap.com/ns/1.0"
+	id        = "com.habitrac.android"
+	versionCode="1" 
+	version   = "1.0">
 
     <!-- versionCode is optional and Android only -->
+	<!-- See: https://build.phonegap.com/docs/config-xml -->
 
     <name>Habitrac</name>
 
@@ -22,4 +23,8 @@
 	<!-- ALLOW APP TO BE MOVED TO SD CARD -->
 	<!-- See: http://developer.android.com/guide/topics/data/install-location.html -->
 	<preference name="android-installLocation" value="auto" />
+	<preference name="exit-on-suspend" value="true" />
+	
+	<gap:splash src="splash/habitrac_splash_screeen.png" gap:platform="android" gap:density="ldpi" />
+	<gap:splash src="splash/habitrac_splash_screeen.png" gap:platform="android" gap:density="mdpi" />
 </widget>
