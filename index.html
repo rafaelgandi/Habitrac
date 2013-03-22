@@ -63,6 +63,11 @@ document.addEventListener('deviceready', function () {
 					z('#init_loading').remove();
 					Habitrac.Logic.buildHabitList();		
 					Habitrac.Log.report('Building habit list...');
+					try {
+						navigator.splashscreen.hide();
+					} catch (err) {
+						Habitrac.Log.report('navigator.splashscreen.hide() was not found.');
+					};
 				});				
 				loadScript('js/Habitrac.Events.js');
 				Habitrac.Log.report('Initializing events...');		

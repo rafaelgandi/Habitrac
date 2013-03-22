@@ -24,6 +24,7 @@
 	<!-- See: http://developer.android.com/guide/topics/data/install-location.html -->
 	<preference name="android-installLocation" value="auto" />
 	<preference name="exit-on-suspend" value="true" />
+	<preference name="auto-hide-splash-screen" value="false" />
 	
 	<gap:splash src="splash/habitrac_splash_screeen.png" gap:platform="android" gap:density="ldpi" />
 	<gap:splash src="splash/habitrac_splash_screeen.png" gap:platform="android" gap:density="mdpi" />
