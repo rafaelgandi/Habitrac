@@ -1,7 +1,24 @@
 (function (self, z, Habitrac, ls, undefined) {
 	Habitrac.Events = {
 		exit: function () {
-			Habitrac.Logic.exitApp();
+			try {
+				var data = {
+					date: (new Date()).toString(),
+					habits: Habitrac.Globals.habits,
+					habitTimes: Habitrac.Globals.habitTimes
+				};
+				Habitrac.File.writeBackUp(JSON.stringify(data), function () {
+					Habitrac.Logic.notify('Backup made!!!');
+					setTimeout(function () {
+						Habitrac.Logic.exitApp();
+					}, 400);					
+				});
+			}
+			catch (e) {
+				Habitrac.Log.report('Error on file backup, try again');
+				Habitrac.Logic.exitApp();
+			}
+			
 		},
 		buttonHighLight: function (e) {
 			var $me = z(this),
@@ -150,10 +167,12 @@
 			Habitrac.Logic.saveEdittedHabit(habitId, habit);
 		},
 		chartMenuClicked: function () {
+			//alert(habitId);	return;
 			var $me = z(this),
 				habitId = trim($me.attr('data-habitid'));
+			
 			Habitrac.Logic.showChart(habitId);
-			Habitrac.Logic.hideHabitListMenu();
+			Habitrac.Logic.hideHabitListMenu(); 
 		},
 		habitContextMenuBlur: (function () {
 				// On Menu Blur //
@@ -230,18 +249,27 @@
 				return;
 			}
 			Util.confirm({
-				message: 'Continue with restore?',
+				message: 'Continue with restore? This will OVERWRITE THE BACKUP FILE!',
 				callback: function (button) {
 					if (button === 2 || button === true) {
-						Habitrac.File.readBackUp(function (res) {
-							if (Habitrac.Storage.import(res)) {
-								Mui.gotoPage('habit_list_page');
-								Habitrac.Logic.notify('Finished restoring data.');
-							}
-							else {
-								alert('Sorry, unable to restore data.');
-							}
-						});	
+						Util.confirm({
+							message: 'ARE YOU SURE ABOUT THIS?',
+							callback: function (b) {
+								if (b === 2 || b === true) {
+									Habitrac.File.readBackUp(function (res) {
+										if (Habitrac.Storage.import(res)) {
+											Mui.gotoPage('habit_list_page');
+											Habitrac.Logic.notify('Finished restoring data.');
+										}
+										else {
+											alert('Sorry, unable to restore data.');
+										}
+									});		
+								}
+							},
+							title: 'Are you really sure?',
+							buttons: 'Nevermind, Yes I\'m sure'
+						});						
 					}
 				},
 				title: 'Restore',
@@ -256,7 +284,7 @@
 				Habitrac.Logic.buildHabitList();		
 			},
 			edit_habit_page: function (e, $page, data) {
-				Util.getElementFromCache('#edit_habit_input').val(data.habit).focus();
+				Util.getElementFromCache('#edit_habit_input').val(data.habit); 				
 				Util.getElementFromCache('#save_edit_habit_button').data('habitid', data.habitId);
 				Habitrac.Logic.hideHabitListMenu();
 			},
@@ -304,10 +332,11 @@
 	$root.on('click', '#goto_logs_page_button', Habitrac.Events.gotoLogsPage);	
 	$root.on('click', '#make_file_backup_button', Habitrac.Events.makeFileBackup);	
 	$root.on('click', '#restore_from_backup_file_button', Habitrac.Events.restoreFromFileBackup);	
-	// Habit list context menu events //	
-	$root.on('click', '#delete_habit_button', Habitrac.Events.deleteHabitMenuClicked);
-	$root.on('click', '#edit_habit_button', Habitrac.Events.editHabitMenuClicked);
-	$root.on('click', '#habit_chart_menu_button', Habitrac.Events.chartMenuClicked);
+	// Habit list context menu events // 
+	// LM: 09-20-2014 [Fix menu buttons not working by replacing "click" with "touchend" event]
+	$root.on('touchend', '#delete_habit_button', Habitrac.Events.deleteHabitMenuClicked);
+	$root.on('touchend', '#edit_habit_button', Habitrac.Events.editHabitMenuClicked);
+	$root.on('touchend', '#habit_chart_menu_button', Habitrac.Events.chartMenuClicked);    
 	//Phonegap events//
 	document.addEventListener('backbutton', Habitrac.Events.phoneBackButton, false);		
 	document.addEventListener('menubutton', Habitrac.Events.phoneMenuButton, false);		

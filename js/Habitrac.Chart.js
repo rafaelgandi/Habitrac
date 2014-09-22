@@ -146,7 +146,7 @@
 			fail = 0;
 		if (! chartData) {
 			Habitrac.Chart.writeCountLabels();
-			Habitrac.Chart.calculateHabitAgeInDays(_habitId);
+			Habitrac.Chart.calculateHabitAgeInDays(_habitId);  
 			// Make empty pie		
 			Habitrac.Chart.pie('habit_pie', 100, [100], ['None'], ['D4D0C8']);
 			return;
@@ -154,7 +154,7 @@
 		// Calculate percentage here //
 		didit = (chartData.didit / chartData.total) * 100;	
 		fail = (chartData.fail / chartData.total) * 100;	
-		Habitrac.Chart.writeCountLabels(chartData.didit, chartData.fail);
+		Habitrac.Chart.writeCountLabels(chartData.didit, chartData.fail); 
 		Habitrac.Chart.calculateHabitAgeInDays(_habitId);
 		Habitrac.Chart.pie('habit_pie', 100, [fail, didit], [Math.round(fail)+'%', Math.round(didit)+'%'], ['E33331', '85C708']);
 	};

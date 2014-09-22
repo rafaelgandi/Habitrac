@@ -3,7 +3,7 @@
 	xmlns:gap = "http://phonegap.com/ns/1.0"
 	id        = "com.habitrac.android"
 	versionCode="1" 
-	version   = "1.0">
+	version   = "1.1">
 
     <!-- versionCode is optional and Android only -->
 	<!-- See: https://build.phonegap.com/docs/config-xml -->
@@ -26,6 +26,6 @@
 	<preference name="exit-on-suspend" value="true" />
 	<preference name="auto-hide-splash-screen" value="false" />
 	
-	<gap:splash src="splash/habitrac_splash_screeen.png" gap:platform="android" gap:density="ldpi" />
-	<gap:splash src="splash/habitrac_splash_screeen.png" gap:platform="android" gap:density="mdpi" />
+	<gap:splash src="splash/splashscreen.png" gap:platform="android" gap:density="ldpi" />
+	<gap:splash src="splash/splashscreen.png" gap:platform="android" gap:density="mdpi" />
 </widget>

@@ -15,7 +15,8 @@ function loadScript(url, callback){
 	// in android 4.0+ Use it only on the browser, hence the isMobileAndroid()
 	// checker function.
 	// See: http://code.google.com/p/android/issues/detail?id=17535
-    script.src = url + ((! isMobileAndroid()) ? '?'+(new Date()).getTime() : '');
+    //script.src = url + ((! isMobileAndroid()) ? '?'+(new Date()).getTime() : '');
+    script.src = url + '?'+(new Date()).getTime();
     document.body.appendChild(script);
 }
 
