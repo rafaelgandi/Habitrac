@@ -26,7 +26,7 @@
 	<preference name="exit-on-suspend" value="true" />
 	<preference name="auto-hide-splash-screen" value="false" />
 	<!-- LM: 09-22-2014 -->
-	<!-- See: https://github.com/apache/cordova-plugin-file/blob/21e119692ab9c9fb2912dc69e2c6d4b05307e3e2/doc/index.md -->
+	<!-- See: http://detlefsendev.dk/phonegap-3-4-0-file-system-access/ -->
 	<preference name="AndroidPersistentFileLocation" value="Compatibility" />
 	
 	<gap:splash src="splash/splashscreen.png" gap:platform="android" gap:density="ldpi" />
