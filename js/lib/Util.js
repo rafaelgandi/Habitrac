@@ -32,7 +32,8 @@ window.Util = {
 	})(),
 	
 	confirm: function (_o) {
-		if (typeof navigator.notification.confirm !== 'undefined') {
+		var undefined;
+		if (navigator.notification !== undefined && navigator.notification.confirm !== undefined) {
 			navigator.notification.confirm(
 				_o.message,
 				function (button) {

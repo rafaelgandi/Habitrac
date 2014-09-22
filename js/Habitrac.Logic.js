@@ -149,9 +149,10 @@
 			
 			// phonegap stuff //
 			Habitrac.Log.report('device name: '+device.name);
-			Habitrac.Log.report('phonegap version: '+device.phonegap);
+			Habitrac.Log.report('cordova: '+device.cordova);
 			Habitrac.Log.report('platform: '+device.platform);
 			Habitrac.Log.report('os version: '+device.version);
+			Habitrac.Log.report('model: '+device.model);
 			Habitrac.Log.report('uuid: '+device.uuid);			
 			Habitrac.Log.report('---------- DEVICE DIAGNOSTICS ---------');
 		}

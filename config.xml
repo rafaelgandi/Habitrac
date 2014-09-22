@@ -25,7 +25,24 @@
 	<preference name="android-installLocation" value="auto" />
 	<preference name="exit-on-suspend" value="true" />
 	<preference name="auto-hide-splash-screen" value="false" />
+	<!-- LM: 09-22-2014 -->
+	<!-- See: https://github.com/apache/cordova-plugin-file/blob/21e119692ab9c9fb2912dc69e2c6d4b05307e3e2/doc/index.md -->
+	<preference name="AndroidPersistentFileLocation" value="Internal" />
 	
 	<gap:splash src="splash/splashscreen.png" gap:platform="android" gap:density="ldpi" />
 	<gap:splash src="splash/splashscreen.png" gap:platform="android" gap:density="mdpi" />
+	
+	<!-- Must manually include the core plugins. Required for phonegap 3.x.x updgrade -->
+	<!-- See: http://docs.build.phonegap.com/en_US/introduction_upgrading_2_9_to_3_1.md.html#Upgrading%20from%202.9%20to%203.x -->
+	<gap:plugin name="org.apache.cordova.file" version="1.0.1" />
+	<gap:plugin name="org.apache.cordova.file-transfer" version="0.4.2" />
+	<gap:plugin name="org.apache.cordova.dialogs" version="0.2.6" />
+	<gap:plugin name="org.apache.cordova.device" version="0.2.8" />
+	<gap:plugin name="org.apache.cordova.device-motion" version="0.2.6" />
+	<gap:plugin name="org.apache.cordova.device-orientation" version="0.3.5" />
+	<gap:plugin name="org.apache.cordova.splashscreen" version="0.2.7" />
+	<gap:plugin name="org.apache.cordova.network-information" version="0.2.7" />
+	<gap:plugin name="org.apache.cordova.console" version="0.2.7" />
+	<gap:plugin name="org.apache.cordova.battery-status" version="0.2.7" />	
+	<gap:plugin name="org.apache.cordova.media" version="0.2.8" />
 </widget>
