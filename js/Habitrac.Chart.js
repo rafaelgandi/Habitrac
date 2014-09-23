@@ -5,6 +5,10 @@
 	// See: http://reubencrane.com/blog/?p=4
 	var pieProps = {};
 	function W(x,y,r,u,v) {
+		// LM: 09-23-2014
+		// fill() bug here won't work on desktop chrome browser, but seems
+		// to be working fine on the device.
+		// See: https://github.com/ericdrowell/KineticJS/issues/244
 		var a = pieProps.a
 		r ? a.beginPath() | a.fill(a.moveTo(x,y)|a.arc(x,y,r,(u||0)/50*Math.PI,(v||7)/50*Math.PI,0)|a.lineTo(x,y))
 		: a.fillStyle = '#'+pieProps.colors[pieProps.i++];
@@ -14,8 +18,12 @@
 	Habitrac.Chart.pie = function (canvas, radius, percentages, n, colors) {
 		var canvas = document.getElementById(canvas);
 		var a = pieProps.a = canvas.getContext("2d");
-		pieProps.colors = colors
-		pieProps.i = 0
+		// LM: 09-23-2014
+		// Clear the canvas content first.
+		// See: http://www.html5canvastutorials.com/advanced/html5-clear-canvas/
+		a.clearRect(0, 0, canvas.width, canvas.height);	
+		pieProps.colors = colors;
+		pieProps.i = 0;
 		canvas.width = 3.5*radius;
 		canvas.height = 2.5*radius;
 		x = y = canvas.height/2;

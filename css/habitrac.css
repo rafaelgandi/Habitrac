@@ -414,16 +414,19 @@ div.bar_didit {
 	font-weight: normal;
 }
 
-/* LM: 12-28-12 */
+/* LM: 09-23-14 */
 #log_con {
 	width: 100%;
 	min-height: 360px;
 	height:100%;
-	background: url("../images/logs_bg.gif") no-repeat right 20px fixed #000;
+	background: url("../images/logs_bg.gif") no-repeat right 70px fixed #000;
 	color: #fff;
 	padding: 5px;
+	padding-bottom: 15px;
 	font-size: 12px;
-	font-family: sans-serif;
+	font-family: consolas, sans-serif;
+	/* See: http://www.w3schools.com/cssref/css3_pr_word-wrap.asp */
+	word-wrap: break-word;
 }
 
 

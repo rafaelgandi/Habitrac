@@ -12,11 +12,11 @@ function loadScript(url, callback){
 		callback();
 	};
 	// Don't use  querystring cache busters as it will cause issues 
-	// in android 4.0+ Use it only on the browser, hence the isMobileAndroid()
+	// in android 4.0.4 Use it only on the browser, hence the isMobileAndroid()
 	// checker function.
 	// See: http://code.google.com/p/android/issues/detail?id=17535
     //script.src = url + ((! isMobileAndroid()) ? '?'+(new Date()).getTime() : '');
-    script.src = url + '?'+(new Date()).getTime();
+    script.src = url + '?'+(new Date()).getTime(); // LM: 09-23-2014 [Now works on Android 4.1.2]
     document.body.appendChild(script);
 }
 

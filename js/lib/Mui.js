@@ -2,8 +2,9 @@
 	Mui - My/Mobile UI
 		- This is my personal mobile ui framework template. Very basic!
 		- This is primarily built for my Android 2.3.6 LG Optimus E400 L3 phone.
-		- Dependent on Zepto.js
-	LM: 09-21-14	
+		- Also works with my current phone.. Lenovo A706 ROW
+		- Dependent on Zepto.js v1.1.4 and above.
+	LM: 09-23-14	
  */
 Zepto(function () {
 	window.Mui = (function (self, document, z, undefined) {
@@ -87,8 +88,9 @@ Zepto(function () {
 					_data = _data || false;
 					$page.data('sent', '');
 					if (!! _data) { $page.data('sent', _data); }					
-					$root.trigger('mui_beforepagechange', [Mui.$CURRENT_PAGE]);					
-					$page.addClass('mui_active_page').fadeIn();	
+					$root.trigger('mui_beforepagechange', [Mui.$CURRENT_PAGE]);	
+					// LM: 09-23-2014 [Update fadeIn speed]	
+					$page.addClass('mui_active_page').fadeIn(200);	
 					Mui.buildHeaderMarkupForPageId(pageId);
 					$otherPages.removeClass('mui_active_page').hide();	
 					

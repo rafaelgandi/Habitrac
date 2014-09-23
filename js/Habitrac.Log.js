@@ -5,7 +5,8 @@ self.Habitrac = self.Habitrac || {};
 		nl = "\n";		
 	Habitrac.Log.report = function (_msg) {
 		var con = logCon.innerHTML;
-		logCon.innerHTML = _msg+nl+con+nl;
+		//logCon.innerHTML = '> '+_msg+nl+con+nl;
+		logCon.innerHTML = con+nl+'> '+_msg;
 		if (self.console) {
 			console.log(_msg);
 		}		
