@@ -140,16 +140,16 @@ input:focus {
 }
 button.header_b_hlight {
 	background-color:#8FB737 !important;
-	box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
 }
 .didit_press {	
 	background-color:#2DA80F !important;
 	/* See: http://timnew.me/blog/2014/08/16/material-design-shadow-in-html/ */
-	box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
 }
 .fail_press {	
 	background-color:#E60A0C !important;
-	box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
 }
 
 .trans {
@@ -171,8 +171,7 @@ button.header_b_hlight {
 	right: 10%;
 	background-color: #fff;
 	z-index: 200;
-	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-	box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+	box-shadow: 0 17px 50px 0 rgba(0, 0, 0, 0.19), 0 12px 15px 0 rgba(0, 0, 0, 0.24);
 	margin: 0 auto;	
 	width: 260px;
 	border-radius: 4px;
@@ -332,7 +331,7 @@ input.chart_date {
 }
 .app_menu_pressed {
 	background-color: #8FB737 !important;
-	box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
 }
 #about_page {
 	background-image: url('../images/pixme.jpg');
@@ -440,8 +439,8 @@ div.bar_didit {
 
 /* LM: 09-29-14 */
 [data-hlightclass] {
-	-webkit-transition: all .5s; /* For Safari 3.1 to 6.0 */
-    transition: all .6s;
+	-webkit-transition: box-shadow .3s; /* For Safari 3.1 to 6.0 */
+    transition: box-shadow .3s;
 }
 
 
