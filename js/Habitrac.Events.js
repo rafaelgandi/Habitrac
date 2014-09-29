@@ -25,10 +25,12 @@
 				tapcolorclass = trim($me.attr('data-hlightclass')),
 				etype = e.type.toLowerCase();			
 			if (etype === 'touchstart') {
+				$me.css({transition: 'all 0s'});
 				$me.addClass(tapcolorclass);	
 			}
 			else {
-				$me.removeClass(tapcolorclass);	
+				$me.css({transition: 'all .6s'});
+				$me.removeClass(tapcolorclass);
 			}
 		},
 		gotoAddHabitPage: function () {
@@ -78,7 +80,7 @@
 		})(),
 		showHabitListMenu: function () {		
 			var $me = z(this),
-				habitId = trim($me.attr('data-habitid'));
+				habitId = trim($me.attr('data-habitid'));	
 			Habitrac.Logic.highlightList($me.parents('li'), 'show_popup_menu');	
 			Habitrac.Logic.showHabitListMenu(habitId);	
 		},
@@ -345,8 +347,7 @@
 	$root.on('habit_list_page', Habitrac.Events.pageEvents.habit_list_page);
 	$root.on('edit_habit_page', Habitrac.Events.pageEvents.edit_habit_page);
 	$root.on('chart_page', Habitrac.Events.pageEvents.chart_page);
-	$root.on('mui_afterpagechange', Habitrac.Events.pageEvents.afterPageChange);
-	
+	$root.on('mui_afterpagechange', Habitrac.Events.pageEvents.afterPageChange);	
 	
 })(self, Zepto, self.Habitrac, self.localStorage);
 Habitrac.Log.report('Habitrac.Events.js loaded');

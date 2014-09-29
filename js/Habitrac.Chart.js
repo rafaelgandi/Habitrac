@@ -16,6 +16,7 @@
 	}
 	
 	Habitrac.Chart.pie = function (canvas, radius, percentages, n, colors) {
+		Habitrac.Log.report('Making pie chart now');
 		var canvas = document.getElementById(canvas);
 		var a = pieProps.a = canvas.getContext("2d");
 		// LM: 09-23-2014
@@ -125,6 +126,23 @@
 		Util.getElementFromCache('#fail_count').text(_fail);
 	};
 	
+	Habitrac.Chart.getLatestHabitLogDateByHabitId = function (_habitId) {
+		// LM: 09-28-2014 [Method used to get the latest log timestamp of a habit.]
+		if (Habitrac.Globals.habitTimes[_habitId] === undefined) {
+			Habitrac.Log.report('Unknown habit id passed to Habitrac.Chart.getLatestHabitLogDateByHabitId() method. id "'+_habitId+'"');
+			return false;
+		}
+		var maxTime = 0,
+			dateTime;
+		for (var p in Habitrac.Globals.habitTimes[_habitId]) {
+			dateTime = pint(Habitrac.Globals.habitTimes[_habitId][p].t);
+			if (dateTime > maxTime) {
+				maxTime = dateTime;
+			}
+		}
+		return maxTime;
+	};
+	
 	Habitrac.Chart.calculateHabitAgeInDays = (function () {
 		var dateDiffs = {},
 			startDates = {};
@@ -142,8 +160,10 @@
 				dateDiffs[_habitId] = Math.ceil(timeDiffInDays); 
 				startDates[_habitId] = (new Date(parseInt(_habitId, 10))).toString();
 			}
+			var lastHabitLoggedDate = (new Date(parseInt(Habitrac.Chart.getLatestHabitLogDateByHabitId(_habitId), 10))).toString();
 			Util.getElementFromCache('#habit_days_diff').text(dateDiffs[_habitId]);
 			Util.getElementFromCache('#habit_date_added').text(startDates[_habitId]);
+			Util.getElementFromCache('#last_habit_logged_date').text(lastHabitLoggedDate);
 		};
 	})();
 	

@@ -45,8 +45,19 @@
 				window.requestFileSystem(self.PERSISTENT, _bytes, gotFS, failFS);
 			}
 			
+			function isPermitted() {
+				var msg = 'Sorry backup and restore functionality is currently turned off. Please set the Habitrac.Globals.BACKUP_AND_RESTORE property in Habitrac.js';
+				if (! Habitrac.Globals.BACKUP_AND_RESTORE) {				
+					alert(msg);
+					Habitrac.Log.report(msg);	
+					return false;
+				}
+				return true;
+			}
+			
 			// Writing to file/backup //
 			Habitrac.File.writeBackUp = function (_backupString, _callback) {
+				if (! isPermitted()) { return; }
 				var data = 	(! isMobileAndroid()) ? (new Blob([_backupString],{})) : (_backupString+'');
 				_callback = _callback || function () {};
 				if (Habitrac.File.FILE_ENTRY) {
@@ -77,6 +88,7 @@
 			
 			// Read from file/backup //
 			Habitrac.File.readBackUp = function (_callback) {
+				if (! isPermitted()) { return; }
 				_callback = _callback || function (res) {};
 				if (Habitrac.File.FILE_ENTRY) {
 					Habitrac.File.FILE_ENTRY.file(function (file) {

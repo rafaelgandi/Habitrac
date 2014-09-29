@@ -102,12 +102,23 @@
 			});
 			Util.getElementFromCache('#habitrac_menu_list').html(html);
 			Util.getElementFromCache('#habitrac_menu_popup_con').removeClass('hide');
+			// LM: 09-28-2014 [Add scale animation]
+			// Easing:
+			// See: http://codepen.io/jamesdelaneyie/pen/yidkA/
+			// See: http://matthewlein.com/ceaser/
+			Util.getElementFromCache('#habitrac_menu_popup_con').animate({
+				scale:'1'
+			}, 80, 'cubic-bezier(.55,0,.1,1)');
 		});
 	};
 	
 	Habitrac.Logic.hideHabitListMenu = function () {		
 		Util.getElementFromCache('#habitrac_menu_list').html('');
 		Util.getElementFromCache('#habitrac_menu_popup_con').addClass('hide');
+		// LM: 09-28-2014 [Shrink scale]
+		Util.getElementFromCache('#habitrac_menu_popup_con').animate({
+			scale: '0.5'
+		}, 0);
 	};
 	
 	Habitrac.Logic.logUserHabitAction = function (_habitId, _type) {
@@ -138,7 +149,7 @@
 	Habitrac.Logic.deviceDiagnostics = function () {
 		// Device diagnostics //
 		try {
-			Habitrac.Log.report('--------------------------------------------');
+			Habitrac.Log.report('---------- DEVICE DIAGNOSTICS ---------');
 			Habitrac.Log.report(navigator.userAgent);
 			Habitrac.Log.report('SCREEN WIDTH: '+screen.width);
 			Habitrac.Log.report('SCREEN HEIGHT: '+screen.height);
@@ -154,7 +165,7 @@
 			Habitrac.Log.report('os version: '+device.version);
 			Habitrac.Log.report('model: '+device.model);
 			Habitrac.Log.report('uuid: '+device.uuid);			
-			Habitrac.Log.report('---------- DEVICE DIAGNOSTICS ---------');
+			Habitrac.Log.report('---------------------------------------');
 		}
 		catch (err) {
 			Habitrac.Log.report('Unable to get screen.width');

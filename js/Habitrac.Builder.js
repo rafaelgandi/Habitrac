@@ -11,7 +11,8 @@
 		_callback = _callback || function (res) {};
 		// See: http://osdir.com/ml/phonegap/2012-10/msg00885.html
 		var req = new XMLHttpRequest(),
-			path = _path + ((! isMobileAndroid()) ? '?'+(new Date()).getTime() : '');
+			//path = _path + ((! isMobileAndroid()) ? '?'+(new Date()).getTime() : '');
+			path = _path + '?' + (new Date()).getTime(); // LM: 09-28-2014 [Always add a cache buster]
 		req.open("GET", path, true);
 		req.onreadystatechange = function () {
 		  if (req.readyState == 4) {

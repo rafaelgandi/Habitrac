@@ -140,12 +140,16 @@ input:focus {
 }
 button.header_b_hlight {
 	background-color:#8FB737 !important;
+	box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }
 .didit_press {	
 	background-color:#2DA80F !important;
+	/* See: http://timnew.me/blog/2014/08/16/material-design-shadow-in-html/ */
+	box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }
 .fail_press {	
 	background-color:#E60A0C !important;
+	box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }
 
 .trans {
@@ -161,7 +165,7 @@ button.header_b_hlight {
 
 #habitrac_menu_popup_con {
 	position: fixed;
-	top: 70px;
+	top: 110px;
 	/* See: http://stackoverflow.com/questions/8844527/css-center-a-fixed-div */
 	left: 10%;
 	right: 10%;
@@ -172,6 +176,9 @@ button.header_b_hlight {
 	margin: 0 auto;	
 	width: 260px;
 	border-radius: 4px;
+	/* LM: 09-28-2014 [Added for scale animation] */
+	-webkit-transform: translate3d(0, 0, 0) rotate(0) scale(0.3);
+	transform: translate3d(0, 0, 0) rotate(0) scale(0.5);
 }
 #habitrac_menu_popup_con li,
 #app_menu_list li {
@@ -325,6 +332,7 @@ input.chart_date {
 }
 .app_menu_pressed {
 	background-color: #8FB737 !important;
+	box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }
 #about_page {
 	background-image: url('../images/pixme.jpg');
@@ -337,7 +345,7 @@ input.chart_date {
 	color: #666;
 }
 #about_page h2 {
-	padding-top: 10px;
+	padding-top: 35px;
 	font-size: 47px;
 	font-weight: 400;
 	letter-spacing: -2px;
@@ -429,5 +437,11 @@ div.bar_didit {
 	word-wrap: break-word;
 }
 
+
+/* LM: 09-29-14 */
+[data-hlightclass] {
+	-webkit-transition: all .5s; /* For Safari 3.1 to 6.0 */
+    transition: all .6s;
+}
 
 

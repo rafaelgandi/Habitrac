@@ -20,6 +20,9 @@ function loadScript(url, callback){
     document.body.appendChild(script);
 }
 
+function pint(_str) {
+	return parseInt(_str, 10);
+}
 
 Zepto(function (z) {	
 	Mui.setHeaderMarkup({
