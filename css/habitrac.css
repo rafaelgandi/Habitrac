@@ -439,8 +439,7 @@ div.bar_didit {
 
 /* LM: 09-29-14 */
 [data-hlightclass] {
-	-webkit-transition: box-shadow .3s; /* For Safari 3.1 to 6.0 */
-    transition: box-shadow .3s;
+
 }
 
 

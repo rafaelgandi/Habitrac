@@ -25,11 +25,9 @@
 				tapcolorclass = trim($me.attr('data-hlightclass')),
 				etype = e.type.toLowerCase();			
 			if (etype === 'touchstart') {
-				$me.css({transition: 'box-shadow 0s'});
 				$me.addClass(tapcolorclass);	
 			}
 			else {
-				$me.css({transition: 'box-shadow .3s'});
 				$me.removeClass(tapcolorclass);
 			}
 		},
