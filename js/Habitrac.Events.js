@@ -63,28 +63,32 @@
 			return function () {
 				var $me = z(this),
 					habitId = trim($me.attr('data-habitid'));
-				Util.confirm({
-					message: 'Continue with log?',
-					callback: function (button) {
-						if (button === 2 || button === true) {
-							Habitrac.Logic.logUserHabitAction(habitId, ($me.hasClass('didit_button')) ? 'didit' : 'failed');	
-							Habitrac.Logic.highlightList($me.parents('li'), $me.attr('data-hlightclass'));
-							clearTimeout(timer);
-							// Update the bar graph here //
-							timer = setTimeout(function () {
-								Habitrac.Log.report('Quick bargraph being made.');
-								var bar = Habitrac.Chart.getQuickBarGraphData(habitId),
-									$barCon = (barCons[habitId] === undefined)
-														? $me.parent().parent().find('div.habit_quick_bar_con')
-														: barCons[habitId];
-									$barCon.find('div.bar_fail').css('height', bar.fail+'px');
-									$barCon.find('div.bar_didit').css('height', bar.didit+'px');							
-							}, 1e3);	
-						}
-					},
-					title: 'Habit Log',
-					buttons: 'Nope,Yep'
-				});							
+				// LM: 09-30-2014	
+				// Give a little delay for the animation(pressing button) to show.	
+				setTimeout(function () { 
+					Util.confirm({
+						message: 'Continue with log?',
+						callback: function (button) {
+							if (button === 2 || button === true) {
+								Habitrac.Logic.logUserHabitAction(habitId, ($me.hasClass('didit_button')) ? 'didit' : 'failed');	
+								Habitrac.Logic.highlightList($me.parents('li'), $me.attr('data-hlightclass'));
+								clearTimeout(timer);
+								// Update the bar graph here //
+								timer = setTimeout(function () {
+									Habitrac.Log.report('Quick bargraph being made.');
+									var bar = Habitrac.Chart.getQuickBarGraphData(habitId),
+										$barCon = (barCons[habitId] === undefined)
+															? $me.parent().parent().find('div.habit_quick_bar_con')
+															: barCons[habitId];
+										$barCon.find('div.bar_fail').css('height', bar.fail+'px');
+										$barCon.find('div.bar_didit').css('height', bar.didit+'px');							
+								}, 1e3);	
+							}
+						},
+						title: 'Habit Log',
+						buttons: 'Nope,Yep'
+					});
+				}, 200);						
 			};		
 		})(),
 		showHabitListMenu: function () {		
