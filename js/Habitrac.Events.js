@@ -25,10 +25,16 @@
 				tapcolorclass = trim($me.attr('data-hlightclass')),
 				etype = e.type.toLowerCase();			
 			if (etype === 'touchstart') {
-				$me.addClass(tapcolorclass);	
+				$me.addClass(tapcolorclass);
+				$me.animate({
+					boxShadow: '0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2)'
+				}, 0);
 			}
 			else {
 				$me.removeClass(tapcolorclass);
+				$me.animate({
+					boxShadow: '0 0 0 0 rgba(0, 0, 0, 0)'
+				}, 90, Habitrac.Globals.materialDesignEasingSwiftOut);
 			}
 		},
 		gotoAddHabitPage: function () {

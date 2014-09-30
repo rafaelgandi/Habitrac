@@ -91,7 +91,7 @@ button img {
 	text-shadow: 0 -1px 0 #4c9021;
 	font-size: 20px;
 	font-weight:bold;
-	
+	border-radius: 2px;
 }
 
 #habit_list .didit_button {
@@ -143,13 +143,15 @@ button.header_b_hlight {
 	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
 }
 .didit_press {	
-	background-color:#2DA80F !important;
+	background-color:#669900 !important;
 	/* See: http://timnew.me/blog/2014/08/16/material-design-shadow-in-html/ */
 	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+	transform: scale(1.03);
 }
 .fail_press {	
-	background-color:#E60A0C !important;
+	background-color:#FF4444 !important;
 	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+	transform: scale(1.03);
 }
 
 .trans {
@@ -385,11 +387,12 @@ div.habit_quick_bar_con {
 	top: 5px;
 	width: 80px;
 	height: 80px;
-	border: 1px solid #ccc;
-	border-radius: 8px;
+	border: 1px solid #F2F2F2;
+	border-radius: 2px;
 	padding: 8px !important;
 	text-align: center;
 	background-color: #F7F8F8;
+	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
 }
 div.bar_holder {
 	position: relative;
@@ -399,7 +402,7 @@ div.bar_holder {
 div.bar_holder div {
 	width: 25px;
 	padding: 0 !important;
-	border-radius: 3px;
+	border-radius: 1px;
 	position: absolute;
 	bottom: 0;
 }
@@ -442,4 +445,8 @@ div.bar_didit {
 
 }
 
+/* LM: 09-30-14 */
+#logs_page {
+	background-color: #000;
+}
 

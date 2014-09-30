@@ -108,7 +108,9 @@
 			// See: http://matthewlein.com/ceaser/
 			Util.getElementFromCache('#habitrac_menu_popup_con').animate({
 				scale:'1'
-			}, 80, 'cubic-bezier(.55,0,.1,1)');
+			// "Swift Out" material design easing(cubic-bezier)
+			// See: http://www.google.com/design/spec/animation/authentic-motion.html#authentic-motion-mass-weight	
+			}, 80, Habitrac.Globals.materialDesignEasingSwiftOut);
 		});
 	};
 	
