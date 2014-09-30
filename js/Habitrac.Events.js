@@ -23,18 +23,23 @@
 		buttonHighLight: function (e) {
 			var $me = z(this),
 				tapcolorclass = trim($me.attr('data-hlightclass')),
-				etype = e.type.toLowerCase();			
+				etype = e.type.toLowerCase(),
+				animateShadow = tapcolorclass.indexOf('animate_shadow') !== -1;			
 			if (etype === 'touchstart') {
 				$me.addClass(tapcolorclass);
-				$me.animate({
-					boxShadow: '0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2)'
-				}, 0);
+				if (animateShadow) {
+					$me.animate({
+						boxShadow: '0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2)'
+					}, 0);	
+				}			
 			}
 			else {
 				$me.removeClass(tapcolorclass);
-				$me.animate({
-					boxShadow: '0 0 0 0 rgba(0, 0, 0, 0)'
-				}, 90, Habitrac.Globals.materialDesignEasingSwiftOut);
+				if (animateShadow) {
+					$me.animate({
+						boxShadow: '0 0 0 0 rgba(0, 0, 0, 0)'
+					}, 50, Habitrac.Globals.materialDesignEasingSwiftOut);
+				}				
 			}
 		},
 		gotoAddHabitPage: function () {

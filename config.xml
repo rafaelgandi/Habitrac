@@ -44,4 +44,8 @@
 	<gap:plugin name="org.apache.cordova.network-information" version="0.2.7" />
 	<gap:plugin name="org.apache.cordova.battery-status" version="0.2.7" />	
 	<gap:plugin name="org.apache.cordova.media" version="0.2.8" />
+	
+	<!-- TODO: Added DatePicker plugin but not using it yet as of 09-30-2014 -->
+	<!-- See: https://github.com/kdileep1990/com.dileep.plugins.datepicker/blob/3aeac69af2a7fdf14b2c1f6e060d7f8706728cf2/README.md -->
+	<gap:plugin name="com.dileep.plugins.datepicker" />
 </widget>

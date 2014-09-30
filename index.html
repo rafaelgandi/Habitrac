@@ -51,7 +51,13 @@
 <script src="js/Habitrac.Startups.js"></script>
 <script src="js/Habitrac.Log.js"></script>
 <script>
-var z = Zepto;	
+var z = Zepto;
+self.onerror = function (_errMsg, _url, _lineNum) {
+	// LM: 09-30-2014 [Also log js errors]
+	// See: https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers.onerror
+	Habitrac.Log.report('JSERROR: "'+_errMsg+'" on '+_url+' @line: '+_lineNum);
+	return false;
+};	
 document.addEventListener('deviceready', function () {
 	Zepto(function () {
 		// LM: 09-23-14 [Do fastclick here. Eliminate 300ms delay for "click" events.]
@@ -103,8 +109,8 @@ document.addEventListener('deviceready', function () {
 			<span class="habit_label" data-habitid="{habit_id}">{habit}</span>	
 		</div>		
 		<div>
-			<button data-habitid="{habit_id}" class="failed_button" data-hlightclass="fail_press">Failed</button>
-			<button data-habitid="{habit_id}" class="didit_button" data-hlightclass="didit_press">Did It!</button>				
+			<button data-habitid="{habit_id}" class="failed_button" data-hlightclass="fail_press animate_shadow">Failed</button>
+			<button data-habitid="{habit_id}" class="didit_button" data-hlightclass="didit_press animate_shadow">Did It!</button>				
 		</div>
 	</li>
 </script>
