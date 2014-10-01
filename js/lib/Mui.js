@@ -87,7 +87,7 @@ Zepto(function () {
 						$otherPages = $muipages.not($page); 
 					_data = _data || false;
 					$page.data('sent', '');
-					if (!! _data) { $page.data('sent', _data); }					
+					if (!! _data) { $page.data('sent', _data); } 					
 					$root.trigger('mui_beforepagechange', [Mui.$CURRENT_PAGE]);	
 					
 					// LM: 10-01-2014 [Fadein fadeout page transition animation]	
