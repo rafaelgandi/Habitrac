@@ -303,26 +303,15 @@
 				Util.getElementFromCache('#save_edit_habit_button').data('habitid', data.habitId);
 				Habitrac.Logic.hideHabitListMenu();
 			},
-			chart_page: function (e, $page, habitId) {
-				// Check if mobiscroll already is loaded //
-				if (z.fn.scroller !== undefined) { runChart(); }
-				else {
-					loadScript('js/lib/mobiscroll-2.1.custom.min.js', function () {						
-						Habitrac.Chart.setUpMobiscroll();
-						Habitrac.Log.report('Setting up mobiscroll..');
-						runChart();			
-					});				
-				}				
-				function runChart() {
-					Util.getElementFromCache('#chart_date_from').val('');
-					Util.getElementFromCache('#chart_date_to').val('');					
-					Util.getElementFromCache('#calculate_pie_chart_button').data('habitid', trim(habitId));
-					// Make initial pie chart. The 'from' and 'to' variables here
-					// should be empty.
-					Habitrac.Chart.makePieChartForHabit(trim(habitId), '', '');
-					Util.getElementFromCache('#pie_chart_h2').text(Habitrac.Globals.habits[habitId]);
-				}
-				
+			chart_page: function (e, $page, habitId) {				
+				Habitrac.Chart.setUpDatePickerPGPlugin(); // Setup PG Datepicker plugin.
+				Util.getElementFromCache('#chart_date_from').val('');
+				Util.getElementFromCache('#chart_date_to').val('');					
+				Util.getElementFromCache('#calculate_pie_chart_button').data('habitid', trim(habitId));
+				// Make initial pie chart. The 'from' and 'to' variables here
+				// should be empty.
+				Habitrac.Chart.makePieChartForHabit(trim(habitId), '', '');
+				Util.getElementFromCache('#pie_chart_h2').text(Habitrac.Globals.habits[habitId]);
 			},
 			afterPageChange: function (e, _$page) {
 				//NOT USED AS OF 12-31-2012

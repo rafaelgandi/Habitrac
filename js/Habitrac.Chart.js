@@ -69,6 +69,27 @@
 		});
 	};
 	
+	Habitrac.Chart.setUpDatePickerPGPlugin = function () {
+		if (self.datePicker === undefined) {
+			// If datePicker phonegap plugin does not exist, then do nothing.
+			// This should run when on desktop mode(development).
+			return; // Do nothing.
+		}
+		// See: https://github.com/kdileep1990/com.dileep.plugins.datepicker/blob/3aeac69af2a7fdf14b2c1f6e060d7f8706728cf2/README.md
+		var options = {
+			date: new Date(),
+			mode: 'date'
+		};
+		$root.on('focus', '#chart_date_from, #chart_date_to', function (e) {
+			var $me = z(this);
+			// Run datepicker pg plugin
+			self.datePicker.show(options, function(date){
+				Habitrac.Log.report('window.datePicker() plugin result: ' + date);  
+				$me.val(date);
+			});
+		});
+	};
+	
 	Habitrac.Chart.normalizeDate = function (_dateVar) {
 		_dateVar = _dateVar || (new Date()).getTime();
 		var d = new Date(_dateVar);
