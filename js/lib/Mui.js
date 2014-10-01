@@ -88,10 +88,9 @@ Zepto(function () {
 					_data = _data || false;
 					$page.data('sent', '');
 					if (!! _data) { $page.data('sent', _data); } 					
-					$root.trigger('mui_beforepagechange', [Mui.$CURRENT_PAGE]);	
-					
+					$root.trigger('mui_beforepagechange', [Mui.$CURRENT_PAGE]);					
 					// LM: 10-01-2014 [Fadein fadeout page transition animation]	
-					$muipages.fadeOut(30, function () {
+					$muipages.fadeOut(10, function () {
 						Mui.buildHeaderMarkupForPageId(pageId);
 						// LM: 09-23-2014 [Update fadeIn speed]	
 						$otherPages.removeClass('mui_active_page');
