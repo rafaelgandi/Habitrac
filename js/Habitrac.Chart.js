@@ -1,5 +1,6 @@
 (function (self, z, Habitrac, ls, undefined) {
 	Habitrac.Chart = {};
+	var doneDatePickerSetup = false;
 	
 	// See: http://blog.crondesign.com/2012/05/simple-javascript-pie-chart-using-html5.html
 	// See: http://reubencrane.com/blog/?p=4
@@ -75,15 +76,18 @@
 			// This should run when on desktop mode(development).
 			return; // Do nothing.
 		}
+		if (doneDatePickerSetup) { return; } //Run only once
+		doneDatePickerSetup = true;
+		Habitrac.Log.report('Doing pg datepicker plugin setup...');
 		// See: https://github.com/inazar/cordova-plugin-datepicker/blob/0fae868/README.md
 		var options = {
 			date: new Date(),
 			mode: 'date'
 		};
-		$root.on('focus', '#chart_date_from, #chart_date_to', function (e) {
+		$root.on('touchend', '#chart_date_from, #chart_date_to', function (e) {
 			var $me = z(this);
 			// Run datepicker pg plugin
-			self.datePicker.show(options, function(date){
+			self.datePicker.show(options, function (date) {
 				Habitrac.Log.report('window.datePicker() plugin result: ' + date);  
 				$me.val(date).blur();
 			});

@@ -47,6 +47,6 @@
 	<gap:plugin name="org.apache.cordova.media" version="0.2.8" />
 	
 	<!-- DatePicker plugin -->
-	<!-- See: https://github.com/inazar/cordova-plugin-datepicker/blob/0fae868/README.md -->
-	<gap:plugin name="com.inazar.datepicker" version="0.4.0" />
+	<!-- See: https://github.com/InformationLogisticsTeam/cordova-plugin-datepicker/blob/31cded7/README.md -->
+	<gap:plugin name="za.co.informationlogisitics.phonegap.datepicker" version="0.3.0" />
 </widget>
