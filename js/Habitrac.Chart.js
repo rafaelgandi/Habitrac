@@ -88,7 +88,7 @@
 			var $me = z(this);
 			// Run datepicker pg plugin
 			self.datePicker.show(options, function (date) {
-				if (date.toLowerCase().indexOf('invalid') !== -1) { return; } // Only accept valid dates
+				if (date.toString().toLowerCase().indexOf('invalid date') !== -1) { return; } // Only accept valid dates
 				Habitrac.Log.report('window.datePicker() plugin result: ' + date);  
 				$me.val(date).blur();
 			});

@@ -90,14 +90,14 @@ Zepto(function () {
 					if (!! _data) { $page.data('sent', _data); } 					
 					$root.trigger('mui_beforepagechange', [Mui.$CURRENT_PAGE]);					
 					// LM: 10-01-2014 [Fadein fadeout page transition animation]	
-					$muipages.fadeOut(10, function () {
+					$muipages.fadeOut(30, function () {
 						Mui.buildHeaderMarkupForPageId(pageId);
 						// LM: 09-23-2014 [Update fadeIn speed]	
 						$otherPages.removeClass('mui_active_page');
 						Mui.$CURRENT_PAGE = $page;
 						$root.trigger('mui_pagechange', [$page, _data]);
 						$root.trigger(pageId, [$page, _data]);
-						$page.addClass('mui_active_page').fadeIn(130, function () {												
+						$page.addClass('mui_active_page').fadeIn(120, function () {												
 							$root.trigger('mui_afterpagechange', [$page]);
 						});
 					}); 								
