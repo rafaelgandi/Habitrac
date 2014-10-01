@@ -75,7 +75,7 @@
 			// This should run when on desktop mode(development).
 			return; // Do nothing.
 		}
-		// See: https://github.com/kdileep1990/com.dileep.plugins.datepicker/blob/3aeac69af2a7fdf14b2c1f6e060d7f8706728cf2/README.md
+		// See: https://github.com/inazar/cordova-plugin-datepicker/blob/0fae868/README.md
 		var options = {
 			date: new Date(),
 			mode: 'date'
@@ -85,7 +85,7 @@
 			// Run datepicker pg plugin
 			self.datePicker.show(options, function(date){
 				Habitrac.Log.report('window.datePicker() plugin result: ' + date);  
-				$me.val(date);
+				$me.val(date).blur();
 			});
 		});
 	};
