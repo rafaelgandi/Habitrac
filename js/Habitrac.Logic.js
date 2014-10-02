@@ -81,10 +81,16 @@
 		return function (_msg) {
 			clearTimeout(timer);
 			Util.getElementFromCache('#notification span').html(_msg);
-			Util.getElementFromCache('#notification').show().css({opacity:1});				
+			Util.getElementFromCache('#notification').show().css({
+				opacity: 1,
+				scale: '1'
+			});				
 			timer = setTimeout(function () {
-				Util.getElementFromCache('#notification').animate({opacity: 0}, {
-					duration: 300,
+				Util.getElementFromCache('#notification').animate({
+					opacity: 0,
+					scale: '0.5'
+				}, {
+					duration: 250,
 					complete: function () {
 						Util.getElementFromCache('#notification span').html('---');
 						Util.getElementFromCache('#notification').hide();

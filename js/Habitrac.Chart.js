@@ -16,9 +16,24 @@
 		return W;
 	}
 	
+	// LM: 10-02-1014
+	// Function to completely wipe a canvas element by replacing it with a 
+	// clone of the old canvas element.
+	function canvasWipe(_id) {
+		var $canvasOld = z('#'+_id),
+			$clone, $parent;
+		if (! $canvasOld.length) { return document.getElementById(_id); }
+		$parent = $canvasOld.parent();
+		$clone = $canvasOld.clone();
+		$canvasOld.remove();
+		$parent.append($clone);
+		return $clone[0];
+	}
+	
 	Habitrac.Chart.pie = function (canvas, radius, percentages, n, colors) {
 		Habitrac.Log.report('Making pie chart now');
-		var canvas = document.getElementById(canvas);
+		//var canvas = document.getElementById(canvas);
+		var canvas = canvasWipe(canvas); // LM: 10-02-1014
 		var a = pieProps.a = canvas.getContext("2d");
 		// LM: 09-23-2014
 		// Clear the canvas content first.
@@ -86,6 +101,7 @@
 		};
 		$root.on('touchend', '#chart_date_from, #chart_date_to', function (e) {
 			var $me = z(this);
+			$me.val('');
 			// Run datepicker pg plugin
 			self.datePicker.show(options, function (date) {
 				if (date.toString().toLowerCase().indexOf('invalid date') !== -1) { return; } // Only accept valid dates

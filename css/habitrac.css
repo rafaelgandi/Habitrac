@@ -248,13 +248,15 @@ span.habit_label {
 #notification span {
 	display:block;
 	margin:0 auto;
-	background-color:#FCD209;
-	border: 3px solid #fff;
+	/* See: http://www.google.com/design/spec/style/color.html#color-ui-color-palette */
+	background-color:#FF9800;
+	border: 0;
+	box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.22), 0 27px 24px 0 rgba(0, 0, 0, 0.2);
 	color:#fff;
 	width: 200px;
 	padding: 7px;
 	text-align: center;
-	border-radius: 10px;
+	border-radius: 3px;
 	font-size: 15px;
 }
 
