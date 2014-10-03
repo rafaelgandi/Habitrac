@@ -94,16 +94,20 @@
 		if (doneDatePickerSetup) { return; } //Run only once
 		doneDatePickerSetup = true;
 		Habitrac.Log.report('Doing pg datepicker plugin setup...');
-		// See: https://github.com/InformationLogisticsTeam/cordova-plugin-datepicker/blob/31cded7/README.md
-		var options = {
-			date: new Date(),
-			mode: 'date'
-		};
 		$root.on('touchend', '#chart_date_from, #chart_date_to', function (e) {
-			var $me = z(this);
+			var $me = z(this),
+				defaultDate = new Date();
+			if (trim($me.val()) !== '') {
+				// LM: 10-03-2014
+				defaultDate = new Date(trim($me.val()));
+			}	
 			$me.val('');
 			// Run datepicker pg plugin
-			self.datePicker.show(options, function (date) {
+			// See: https://github.com/InformationLogisticsTeam/cordova-plugin-datepicker/blob/31cded7/README.md
+			self.datePicker.show({
+				date: defaultDate,
+				mode: 'date'
+			}, function (date) {
 				if (date.toString().toLowerCase().indexOf('invalid date') !== -1) { return; } // Only accept valid dates
 				Habitrac.Log.report('window.datePicker() plugin result: ' + date);  
 				$me.val(date).blur();

@@ -69,6 +69,10 @@
 		return true;
 	};
 	
+	// LM: 10-03-2014
+	// See: http://www.jamescroft.co.uk/blog/web-dev/create-remaining-storage-bar-html5-localstorage/
+	var currentStorageSpace = 1024 * 1024 * 5 - unescape(encodeURIComponent(JSON.stringify(ls))).length; 
+	Habitrac.Log.report('Current Storage Space: ' + currentStorageSpace);
 	
 })(self, Zepto, self.Habitrac, self.localStorage);
 

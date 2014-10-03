@@ -189,8 +189,8 @@ a:link {
 	margin-left: 1px;
 }
 #mui_header_side_button_con button > img {
-	width: 49px;
-	height: 49px;
+	/* width: 49px;
+	height: 49px; */
 	margin:0 auto;
 }
 .mui_listview {

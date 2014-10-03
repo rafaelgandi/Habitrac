@@ -92,7 +92,7 @@ Zepto(function () {
 										
 					Mui.buildHeaderMarkupForPageId(pageId);
 					// LM: 10-02-2014 [Update fadeIn speed]	
-					$otherPages.hide().removeClass('mui_active_page');
+					$muipages.hide().removeClass('mui_active_page');
 					Mui.$CURRENT_PAGE = $page;
 					$root.trigger(pageId, [$page, _data]);
 					$root.trigger('mui_pagechange', [$page, _data]);				
