@@ -5,7 +5,7 @@
 	// See: http://blog.crondesign.com/2012/05/simple-javascript-pie-chart-using-html5.html
 	// See: http://reubencrane.com/blog/?p=4
 	var pieProps = {};
-	function W(x,y,r,u,v) {
+	/* function W(x,y,r,u,v) {
 		// LM: 09-23-2014
 		// fill() bug here won't work on desktop chrome browser, but seems
 		// to be working fine on the device.
@@ -13,6 +13,21 @@
 		var a = pieProps.a
 		r ? a.beginPath() | a.fill(a.moveTo(x,y)|a.arc(x,y,r,(u||0)/50*Math.PI,(v||7)/50*Math.PI,0)|a.lineTo(x,y))
 		: a.fillStyle = '#'+pieProps.colors[pieProps.i++];
+		return W;
+	} */
+	
+	// LM: 04-28-2015 [fixed fill() bug]
+	function W(x, y, r, u, v) {
+		var a = pieProps.a;
+		if (r) {
+			a.beginPath();
+			a.moveTo(x, y);
+			a.arc(x, y, r, (u || 0) / 50 * Math.PI, (v || 7) / 50 * Math.PI, 0);
+			a.lineTo(x, y);
+			a.fill();
+		} else {
+			a.fillStyle = '#'+pieProps.colors[pieProps.i++];
+		}
 		return W;
 	}
 	
