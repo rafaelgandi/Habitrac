@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- LM: 10-02-14 -->
+<!-- LM: 05-11-2015 -->
 <html lang="en">
 <head>
 	<meta charset="utf-8">
@@ -67,6 +67,15 @@ document.addEventListener('deviceready', function () {
 	loadScript('js/lib/Util.js');
 	loadScript('js/Habitrac.Storage.js', function () {
 		Habitrac.Log.report('Util.js script loaded');
+		// Change the status bar color to habitrac greeen //
+		// LM: 05-11-2015
+		try {		
+			StatusBar.backgroundColorByHexString("#80C801");
+			Habitrac.Log.report('StatusBar object actually worked!');
+		} catch (er) {
+			Habitrac.Log.report('StatusBar object did not work :(');
+			Habitrac.Log.report('StatusBar error: ' + er.message);
+		}
 		runwhen(['window.Habitrac', 'window.Util'], function () {			
 			loadScript('js/Habitrac.Builder.js');			
 			runwhen('Habitrac.Builder', function () {
